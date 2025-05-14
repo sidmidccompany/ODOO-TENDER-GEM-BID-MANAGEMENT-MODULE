@@ -1,0 +1,278 @@
+/* tender_dashboard.js */
+odoo.define('tender_management.dashboard', function (require) {
+"use strict";
+
+var AbstractAction = require('web.AbstractAction');
+var core = require('web.core');
+var rpc = require('web.rpc');
+var session = require('web.session');
+var QWeb = core.qweb;
+
+var TenderDashboard = AbstractAction.extend({
+    template: 'TenderDashboard',
+    events: {
+        'click .o_tender_dashboard_action': '_onDashboardActionClick',
+        'click .o_dashboard_star': '_onStarClick',
+    },
+
+    /**
+     * @override
+     */
+    init: function(parent, action) {
+        this._super.apply(this, arguments);
+        this.action = action;
+        this.dashboardData = {};
+    },
+
+    /**
+     * @override
+     */
+    willStart: function() {
+        var self = this;
+        return this._super.apply(this, arguments).then(function() {
+            return self._fetchDashboardData();
+        });
+    },
+
+    /**
+     * @override
+     */
+    start: function() {
+        var self = this;
+        return this._super.apply(this, arguments).then(function() {
+            self._renderDashboard();
+        });
+    },
+
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * Fetch the dashboard data from the server
+     *
+     * @private
+     * @returns {Promise}
+     */
+    _fetchDashboardData: function() {
+        var self = this;
+        return rpc.query({
+            model: 'tender.tender',
+            method: 'get_dashboard_data',
+            args: [],
+        }).then(function(result) {
+            self.dashboardData = result;
+        });
+    },
+
+    /**
+     * Render the dashboard content
+     *
+     * @private
+     */
+    _renderDashboard: function() {
+        var self = this;
+        this.$('.o_tender_dashboard_content').html(QWeb.render('TenderDashboardContent', {
+            widget: this,
+            data: this.dashboardData,
+        }));
+
+        // Initialize the charts
+        this._initCharts();
+    },
+
+    /**
+     * Initialize the dashboard charts
+     *
+     * @private
+     */
+    _initCharts: function() {
+        var self = this;
+
+        // Tenders Status Chart
+        if (this.dashboardData.tender_status_data) {
+            var ctx = this.$('.o_tender_status_chart')[0].getContext('2d');
+            var statusChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: this.dashboardData.tender_status_data.labels,
+                    datasets: [{
+                        data: this.dashboardData.tender_status_data.data,
+                        backgroundColor: this.dashboardData.tender_status_data.colors,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Tenders by Status'
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        }
+
+        // Department Success Rate Chart
+        if (this.dashboardData.department_success_data) {
+            var ctx = this.$('.o_department_success_chart')[0].getContext('2d');
+            var deptChart = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: this.dashboardData.department_success_data.labels,
+                    datasets: [{
+                        label: 'Success Rate (%)',
+                        data: this.dashboardData.department_success_data.data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Department Success Rate'
+                    }
+                }
+            });
+        }
+
+        // Monthly Tenders Chart
+        if (this.dashboardData.monthly_tenders_data) {
+            var ctx = this.$('.o_monthly_tenders_chart')[0].getContext('2d');
+            var monthlyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: this.dashboardData.monthly_tenders_data.labels,
+                    datasets: [{
+                        label: 'New Tenders',
+                        data: this.dashboardData.monthly_tenders_data.new_data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Submitted Bids',
+                        data: this.dashboardData.monthly_tenders_data.submitted_data,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Awarded',
+                        data: this.dashboardData.monthly_tenders_data.awarded_data,
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Tenders Activity by Month'
+                    }
+                }
+            });
+        }
+    },
+
+    /**
+     * Reload dashboard data and render the dashboard
+     *
+     * @private
+     * @returns {Promise}
+     */
+    _reloadDashboard: function() {
+        var self = this;
+        return this._fetchDashboardData().then(function() {
+            self._renderDashboard();
+        });
+    },
+
+    //--------------------------------------------------------------------------
+    // Handlers
+    //--------------------------------------------------------------------------
+
+    /**
+     * Handle click on dashboard action button
+     *
+     * @private
+     * @param {MouseEvent} ev
+     */
+    _onDashboardActionClick: function(ev) {
+        ev.preventDefault();
+        var $action = $(ev.currentTarget);
+        var action = $action.attr('name');
+        var id = $action.data('id');
+        var context = {};
+        
+        if (id) {
+            context.active_id = id;
+        }
+        
+        this.do_action({
+            name: $action.text(),
+            type: 'ir.actions.act_window',
+            res_model: 'tender.tender',
+            views: [[false, 'list'], [false, 'form']],
+            domain: [['id', '=', id]],
+            context: context,
+            target: 'current'
+        });
+    },
+
+    /**
+     * Handle click on star button (favorite)
+     *
+     * @private
+     * @param {MouseEvent} ev
+     */
+    _onStarClick: function(ev) {
+        ev.preventDefault();
+        var $star = $(ev.currentTarget);
+        var tenderId = $star.data('id');
+        
+        rpc.query({
+            model: 'tender.tender',
+            method: 'toggle_favorite',
+            args: [tenderId],
+        }).then(function() {
+            $star.toggleClass('o_starred');
+        });
+    }
+});
+
+core.action_registry.add('tender_dashboard', TenderDashboard);
+
+return TenderDashboard;
+
+});
