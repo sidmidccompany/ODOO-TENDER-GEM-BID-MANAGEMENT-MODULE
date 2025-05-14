@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default Tender Categories -->
+        <record id="tender_category_goods" model="tender.category">
+            <field name="name">Goods</field>
+            <field name="code">GOODS</field>
+            <field name="description">Procurement of goods and products</field>
+        </record>
+        
+        <record id="tender_category_works" model="tender.category">
+            <field name="name">Works</field>
+            <field name="code">WORKS</field>
+            <field name="description">Construction and maintenance works</field>
+        </record>
+        
+        <record id="tender_category_services" model="tender.category">
+            <field name="name">Services</field>
+            <field name="code">SERVICES</field>
+            <field name="description">Professional and managed services</field>
+        </record>
+        
+        <record id="tender_category_consultancy" model="tender.category">
+            <field name="name">Consultancy</field>
+            <field name="code">CONSULT</field>
+            <field name="description">Advisory and consulting services</field>
+        </record>
+        
+        <!-- Sub-categories -->
+        <record id="tender_category_it_hardware" model="tender.category">
+            <field name="name">IT Hardware</field>
+            <field name="code">IT-HW</field>
+            <field name="parent_id" ref="tender_category_goods"/>
+            <field name="description">Computers, servers, networking equipment</field>
+        </record>
+        
+        <record id="tender_category_it_software" model="tender.category">
+            <field name="name">IT Software</field>
+            <field name="code">IT-SW</field>
+            <field name="parent_id" ref="tender_category_goods"/>
+            <field name="description">Software licenses and applications</field>
+        </record>
+        
+        <record id="tender_category_office_supplies" model="tender.category">
+            <field name="name">Office Supplies</field>
+            <field name="code">OFF-SUP</field>
+            <field name="parent_id" ref="tender_category_goods"/>
+            <field name="description">Office stationery and supplies</field>
+        </record>
+        
+        <record id="tender_category_construction" model="tender.category">
+            <field name="name">Construction</field>
+            <field name="code">CONST</field>
+            <field name="parent_id" ref="tender_category_works"/>
+            <field name="description">Building construction and civil works</field>
+        </record>
+        
+        <record id="tender_category_maintenance" model="tender.category">
+            <field name="name">Maintenance</field>
+            <field name="code">MAINT</field>
+            <field name="parent_id" ref="tender_category_works"/>
+            <field name="description">Maintenance and repair works</field>
+        </record>
+        
+        <record id="tender_category_it_services" model="tender.category">
+            <field name="name">IT Services</field>
+            <field name="code">IT-SVC</field>
+            <field name="parent_id" ref="tender_category_services"/>
+            <field name="description">IT support and services</field>
+        </record>
+        
+        <record id="tender_category_security" model="tender.category">
+            <field name="name">Security Services</field>
+            <field name="code">SEC-SVC</field>
+            <field name="parent_id" ref="tender_category_services"/>
+            <field name="description">Security and surveillance services</field>
+        </record>
+        
+        <!-- Default Skills -->
+        <record id="tender_skill_technical_writing" model="tender.skill">
+            <field name="name">Technical Writing</field>
+            <field name="category">technical</field>
+            <field name="description">Ability to prepare detailed technical proposals and specifications</field>
+        </record>
+        
+        <record id="tender_skill_financial_analysis" model="tender.skill">
+            <field name="name">Financial Analysis</field>
+            <field name="category">financial</field>
+            <field name="description">Ability to analyze financial requirements and prepare cost estimates</field>
+        </record>
+        
+        <record id="tender_skill_legal" model="tender.skill">
+            <field name="name">Legal Expertise</field>
+            <field name="category">legal</field>
+            <field name="description">Knowledge of contract law and tender regulations</field>
+        </record>
+        
+        <record id="tender_skill_project_management" model="tender.skill">
+            <field name="name">Project Management</field>
+            <field name="category">management</field>
+            <field name="description">Skills in planning, coordinating, and executing projects</field>
+        </record>
+        
+        <record id="tender_skill_negotiation" model="tender.skill">
+            <field name="name">Negotiation</field>
+            <field name="category">management</field>
+            <field name="description">Ability to negotiate favorable terms and conditions</field>
+        </record>
+        
+        <!-- Default Tags -->
+        <record id="tender_tag_high_value" model="tender.tag">
+            <field name="name">High Value</field>
+            <field name="color">2</field> <!-- Red -->
+        </record>
+        
+        <record id="tender_tag_strategic" model="tender.tag">
+            <field name="name">Strategic</field>
+            <field name="color">7</field> <!-- Purple -->
+        </record>
+        
+        <record id="tender_tag_repeat_business" model="tender.tag">
+            <field name="name">Repeat Business</field>
+            <field name="color">3</field> <!-- Green -->
+        </record>
+        
+        <record id="tender_tag_complex" model="tender.tag">
+            <field name="name">Complex</field>
+            <field name="color">4</field> <!-- Blue -->
+        </record>
+        
+        <record id="tender_tag_urgent" model="tender.tag">
+            <field name="name">Urgent</field>
+            <field name="color">1</field> <!-- Orange -->
+        </record>
+    </data>
+</odoo>
