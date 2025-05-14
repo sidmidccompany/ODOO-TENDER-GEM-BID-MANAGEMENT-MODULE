@@ -1,0 +1,205 @@
+/* Dashboard Styles for Tender Management */
+
+.o_tender_dashboard {
+    padding: 20px;
+    background-color: #f5f7f9;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.o_tender_dashboard_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.o_tender_dashboard_header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.o_tender_dashboard_buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Dashboard Cards */
+.o_tender_dashboard_card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.o_tender_dashboard_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.o_tender_dashboard_card_header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #f8f9fa;
+}
+
+.o_tender_dashboard_card_header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.o_tender_dashboard_card_body {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.o_tender_dashboard_card_value {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.o_tender_dashboard_card_icon {
+    color: #0d6efd;
+    opacity: 0.8;
+}
+
+.o_tender_dashboard_card_footer {
+    padding: 12px 20px;
+    border-top: 1px solid #eee;
+    background-color: #f8f9fa;
+    text-align: right;
+}
+
+.o_tender_dashboard_card_footer a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.o_tender_dashboard_card_footer a:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard Charts */
+.o_tender_dashboard_chart_container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.o_tender_dashboard_chart_container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.o_tender_dashboard_chart {
+    height: 300px;
+    position: relative;
+}
+
+/* Dashboard Tables */
+.o_tender_dashboard_table_container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.o_tender_dashboard_table_container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.o_tender_dashboard_table_container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.o_tender_dashboard_table_container th {
+    background-color: #f8f9fa;
+    padding: 10px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.o_tender_dashboard_table_container td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.o_tender_dashboard_table_container tr:last-child td {
+    border-bottom: none;
+}
+
+.o_tender_dashboard_table_container tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Empty State */
+.o_tender_dashboard_empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.o_tender_dashboard_empty i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.4;
+}
+
+.o_tender_dashboard_empty h3 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Star Button */
+.o_dashboard_star {
+    cursor: pointer;
+    margin-right: 5px;
+    color: #6c757d;
+}
+
+.o_dashboard_star.o_starred {
+    color: #ffc107;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .o_tender_dashboard_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .o_tender_dashboard_buttons {
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .o_tender_dashboard_buttons button {
+        flex: 1;
+    }
+    
+    .o_tender_dashboard_card_value {
+        font-size: 24px;
+    }
+    
+    .o_tender_dashboard_chart {
+        height: 250px;
+    }
+}
