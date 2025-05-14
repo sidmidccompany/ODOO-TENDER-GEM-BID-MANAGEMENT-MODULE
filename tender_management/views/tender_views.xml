@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tender Form View -->
+    <record id="tender_view_form" model="ir.ui.view">
+        <field name="name">tender.tender.form</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <form string="Tender">
+                <header>
+                    <button name="action_submit_for_review" string="Submit for Review" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'review')]}"/>
+                    <button name="action_start_preparation" string="Start Bid Preparation" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <button name="action_submit_bid" string="Submit Bid" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'preparation')]}"/>
+                    <button name="action_mark_awarded" string="Mark as Awarded" type="object" 
+                            attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    <button name="action_mark_rejected" string="Mark as Rejected" type="object" 
+                            attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    <button name="action_cancel" string="Cancel" type="object" 
+                            attrs="{'invisible': [('state', 'in', ['awarded', 'rejected', 'canceled'])]}"/>
+                    
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,review,approved,preparation,submitted,awarded"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_documents" icon="fa-file-text-o">
+                            <field string="Documents" name="document_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_bids" icon="fa-gavel">
+                            <field string="Bids" name="bid_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-star" 
+                                attrs="{'invisible': [('is_favorite', '=', True)]}"
+                                type="object" name="action_toggle_favorite">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Mark as Favorite</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-star text-warning" 
+                                attrs="{'invisible': [('is_favorite', '=', False)]}"
+                                type="object" name="action_toggle_favorite">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Remove Favorite</span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="is_favorite" invisible="1"/>
+                    <field name="color" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Tender Reference"/>
+                        </h1>
+                        <h3>
+                            <field name="title" placeholder="Tender Title"/>
+                        </h3>
+                        <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="department_id"/>
+                            <field name="user_id"/>
+                            <field name="team_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="tender_type"/>
+                            <field name="issuing_authority"/>
+                            <field name="source_url" widget="url"/>
+                            <field name="gem_portal_id" attrs="{'invisible': [('tender_type', '!=', 'gem')], 'required': [('tender_type', '=', 'gem')]}"/>
+                            <field name="gem_bid_id" attrs="{'invisible': [('tender_type', '!=', 'gem')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <group>
+                                <group string="Dates">
+                                    <field name="publication_date"/>
+                                    <field name="submission_date"/>
+                                    <field name="opening_date"/>
+                                    <field name="clarification_date"/>
+                                    <field name="has_submission_deadline_passed" invisible="1"/>
+                                    <field name="days_to_deadline" attrs="{'invisible': [('has_submission_deadline_passed', '=', True)]}"/>
+                                </group>
+                                <group string="Financial Information">
+                                    <field name="tender_value" widget="monetary"/>
+                                    <field name="bid_security" widget="monetary"/>
+                                    <field name="emd_required"/>
+                                    <field name="emd_amount" widget="monetary" attrs="{'invisible': [('emd_required', '=', False)]}"/>
+                                    <field name="priority" widget="priority"/>
+                                </group>
+                            </group>
+                            <separator string="Description"/>
+                            <field name="description" placeholder="Add a detailed description of the tender..."/>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids" context="{'default_tender_id': active_id}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="date"/>
+                                    <field name="is_processed_by_ocr"/>
+                                    <field name="user_id"/>
+                                    <button name="action_process_with_ocr" string="Process with OCR" type="object" 
+                                            icon="fa-file-text-o" attrs="{'invisible': [('is_processed_by_ocr', '=', True)]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Bids" name="bids">
+                            <field name="bid_ids" context="{'default_tender_id': active_id}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="user_id"/>
+                                    <field name="technical_score"/>
+                                    <field name="financial_bid"/>
+                                    <field name="creation_date"/>
+                                    <field name="submission_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Team" name="team">
+                            <group>
+                                <field name="team_id"/>
+                                <field name="team_member_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Analytics" name="analytics">
+                            <group>
+                                <field name="analytics_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Tender Tree View -->
+    <record id="tender_view_tree" model="ir.ui.view">
+        <field name="name">tender.tender.tree</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <tree string="Tenders" decoration-info="state=='draft'" decoration-muted="state=='canceled'"
+                  decoration-danger="days_to_deadline &lt;= 3 and state not in ['submitted', 'awarded', 'rejected', 'canceled']"
+                  decoration-success="state=='awarded'">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="tender_type"/>
+                <field name="department_id"/>
+                <field name="submission_date"/>
+                <field name="days_to_deadline"/>
+                <field name="has_submission_deadline_passed" invisible="1"/>
+                <field name="tender_value" sum="Total Value"/>
+                <field name="user_id"/>
+                <field name="state"/>
+                <field name="priority" widget="priority"/>
+                <field name="color" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- Tender Kanban View -->
+    <record id="tender_view_kanban" model="ir.ui.view">
+        <field name="name">tender.tender.kanban</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column" sample="1" 
+                    records_draggable="0" group_create="false" group_delete="false" quick_create="false">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="color"/>
+                <field name="state"/>
+                <field name="priority"/>
+                <field name="user_id"/>
+                <field name="department_id"/>
+                <field name="submission_date"/>
+                <field name="days_to_deadline"/>
+                <field name="document_count"/>
+                <field name="bid_count"/>
+                <field name="has_submission_deadline_passed"/>
+                <field name="is_favorite"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click oe_kanban_content #{record.color.raw_value ? 'oe_kanban_color_' + record.color.raw_value : ''}">
+                            <div class="o_dropdown_kanban dropdown">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <a t-if="!record.is_favorite.raw_value" role="menuitem" type="object" name="action_toggle_favorite" class="dropdown-item">Add to Favorites</a>
+                                    <a t-if="record.is_favorite.raw_value" role="menuitem" type="object" name="action_toggle_favorite" class="dropdown-item">Remove from Favorites</a>
+                                    <div role="separator" class="dropdown-divider"/>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                </div>
+                                <div class="text-muted o_kanban_record_subtitle">
+                                    <field name="title"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="priority" widget="priority"/>
+                                        <t t-if="record.days_to_deadline.raw_value != 0 and !record.has_submission_deadline_passed.raw_value">
+                                            <span t-attf-class="badge badge-#{record.days_to_deadline.raw_value &lt;= 3 ? 'danger' : (record.days_to_deadline.raw_value &lt;= 7 ? 'warning' : 'info')}">
+                                                <t t-esc="record.days_to_deadline.raw_value"/> days
+                                            </span>
+                                        </t>
+                                        <t t-if="record.has_submission_deadline_passed.raw_value">
+                                            <span class="badge badge-danger">Deadline passed</span>
+                                        </t>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <div class="o_kanban_inline_block mr-1">
+                                            <field name="document_count" widget="label_button" string="Documents"/>
+                                        </div>
+                                        <div class="o_kanban_inline_block">
+                                            <field name="bid_count" widget="label_button" string="Bids"/>
+                                        </div>
+                                        <img t-att-src="kanban_image('res.users', 'image_128', record.user_id.raw_value)" 
+                                             t-att-title="record.user_id.value" t-att-alt="record.user_id.value" 
+                                             class="oe_kanban_avatar o_image_40_cover float-right"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <!-- Tender Calendar View -->
+    <record id="tender_view_calendar" model="ir.ui.view">
+        <field name="name">tender.tender.calendar</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <calendar string="Tenders" date_start="submission_date" color="user_id" mode="month" quick_add="false">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="state"/>
+                <field name="user_id"/>
+            </calendar>
+        </field>
+    </record>
+    
+    <!-- Tender Search View -->
+    <record id="tender_view_search" model="ir.ui.view">
+        <field name="name">tender.tender.search</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <search string="Search Tenders">
+                <field name="name" string="Tender Reference"/>
+                <field name="title"/>
+                <field name="user_id"/>
+                <field name="department_id"/>
+                <field name="team_id"/>
+                <field name="issuing_authority"/>
+                <field name="gem_bid_id"/>
+                <field name="tags"/>
+                <separator/>
+                <filter string="My Tenders" name="my_tenders" domain="[('user_id', '=', uid)]"/>
+                <filter string="My Team's Tenders" name="my_team_tenders" domain="[('team_member_ids', 'in', uid)]"/>
+                <filter string="Favorites" name="favorites" domain="[('is_favorite', '=', True)]"/>
+                <separator/>
+                <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Under Review" name="state_review" domain="[('state', '=', 'review')]"/>
+                <filter string="Approved" name="state_approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="In Preparation" name="state_preparation" domain="[('state', '=', 'preparation')]"/>
+                <filter string="Submitted" name="state_submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter string="Awarded" name="state_awarded" domain="[('state', '=', 'awarded')]"/>
+                <filter string="Rejected" name="state_rejected" domain="[('state', '=', 'rejected')]"/>
+                <filter string="Canceled" name="state_canceled" domain="[('state', '=', 'canceled')]"/>
+                <separator/>
+                <filter string="Deadline This Week" name="deadline_this_week" 
+                        domain="[('submission_date', '&gt;=', (context_today() + relativedelta(weeks=-1,days=1,weekday=0)).strftime('%Y-%m-%d')),
+                                ('submission_date', '&lt;=', (context_today() + relativedelta(weekday=6)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Deadline Next Week" name="deadline_next_week" 
+                        domain="[('submission_date', '&gt;=', (context_today() + relativedelta(days=1,weekday=0)).strftime('%Y-%m-%d')),
+                                ('submission_date', '&lt;=', (context_today() + relativedelta(days=1,weekday=6)).strftime('%Y-%m-%d'))]"/>
+                <filter string="Deadline Passed" name="deadline_passed" 
+                        domain="[('has_submission_deadline_passed', '=', True)]"/>
+                <separator/>
+                <filter string="High Priority" name="high_priority" domain="[('priority', 'in', ['2', '3'])]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="groupby_state" context="{'group_by': 'state'}"/>
+                    <filter string="Department" name="groupby_department" context="{'group_by': 'department_id'}"/>
+                    <filter string="Responsible" name="groupby_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Team" name="groupby_team" context="{'group_by': 'team_id'}"/>
+                    <filter string="Tender Type" name="groupby_type" context="{'group_by': 'tender_type'}"/>
+                    <filter string="Submission Month" name="groupby_submission_month" context="{'group_by': 'submission_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Tender Graph View -->
+    <record id="tender_view_graph" model="ir.ui.view">
+        <field name="name">tender.tender.graph</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <graph string="Tenders Analysis" type="bar" sample="1">
+                <field name="state"/>
+                <field name="tender_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    
+    <!-- Tender Pivot View -->
+    <record id="tender_view_pivot" model="ir.ui.view">
+        <field name="name">tender.tender.pivot</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <pivot string="Tenders Analysis" sample="1">
+                <field name="state" type="row"/>
+                <field name="department_id" type="col"/>
+                <field name="tender_value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    
+    <!-- Tender Action -->
+    <record id="tender_action" model="ir.actions.act_window">
+        <field name="name">Tenders</field>
+        <field name="res_model">tender.tender</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="tender_view_search"/>
+        <field name="context">{'search_default_state_draft': 1, 'search_default_state_review': 1, 'search_default_state_approved': 1, 'search_default_state_preparation': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first tender
+            </p>
+            <p>
+                Manage your tenders from opportunity to award.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Tender Document Views -->
+    <record id="tender_document_view_form" model="ir.ui.view">
+        <field name="name">tender.document.form</field>
+        <field name="model">tender.document</field>
+        <field name="arch" type="xml">
+            <form string="Tender Document">
+                <header>
+                    <button name="action_process_with_ocr" string="Process with OCR" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('is_processed_by_ocr', '=', True)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Document Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tender_id"/>
+                            <field name="document_type"/>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="is_processed_by_ocr"/>
+                            <field name="ocr_result_id" attrs="{'invisible': [('is_processed_by_ocr', '=', False)]}"/>
+                            <field name="is_public"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Document" name="document">
+                            <group>
+                                <field name="file" filename="file_name"/>
+                                <field name="file_name" invisible="1"/>
+                            </group>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Add a description for this document..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="tender_document_view_tree" model="ir.ui.view">
+        <field name="name">tender.document.tree</field>
+        <field name="model">tender.document</field>
+        <field name="arch" type="xml">
+            <tree string="Tender Documents">
+                <field name="name"/>
+                <field name="tender_id"/>
+                <field name="document_type"/>
+                <field name="date"/>
+                <field name="is_processed_by_ocr"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="tender_document_view_search" model="ir.ui.view">
+        <field name="name">tender.document.search</field>
+        <field name="model">tender.document</field>
+        <field name="arch" type="xml">
+            <search string="Search Documents">
+                <field name="name"/>
+                <field name="tender_id"/>
+                <field name="document_type"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="My Documents" name="my_documents" domain="[('user_id', '=', uid)]"/>
+                <filter string="Processed by OCR" name="processed_ocr" domain="[('is_processed_by_ocr', '=', True)]"/>
+                <filter string="Not Processed by OCR" name="not_processed_ocr" domain="[('is_processed_by_ocr', '=', False)]"/>
+                <separator/>
+                <filter string="Public Documents" name="public_docs" domain="[('is_public', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Tender" name="groupby_tender" context="{'group_by': 'tender_id'}"/>
+                    <filter string="Document Type" name="groupby_type" context="{'group_by': 'document_type'}"/>
+                    <filter string="Date" name="groupby_date" context="{'group_by': 'date'}"/>
+                    <filter string="Uploaded By" name="groupby_user" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="tender_document_action" model="ir.actions.act_window">
+        <field name="name">Documents</field>
+        <field name="res_model">tender.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_tender': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first document
+            </p>
+            <p>
+                Upload and manage tender documents.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Tender Bid Views -->
+    <record id="tender_bid_view_form" model="ir.ui.view">
+        <field name="name">tender.bid.form</field>
+        <field name="model">tender.bid</field>
+        <field name="arch" type="xml">
+            <form string="Tender Bid">
+                <header>
+                    <button name="action_submit_for_review" string="Submit for Review" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'review')]}"/>
+                    <button name="action_submit" string="Submit Bid" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                    <button name="action_mark_awarded" string="Mark as Awarded" type="object" 
+                            attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    <button name="action_mark_rejected" string="Mark as Rejected" type="object" 
+                            attrs="{'invisible': [('state', '!=', 'submitted')]}"/>
+                    
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,review,approved,submitted,awarded"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Bid Reference"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tender_id"/>
+                            <field name="user_id"/>
+                            <field name="creation_date"/>
+                            <field name="submission_date"/>
+                        </group>
+                        <group>
+                            <field name="technical_score"/>
+                            <field name="financial_bid"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Add notes about this bid..."/>
+                        </page>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids" context="{'default_bid_id': active_id, 'default_tender_id': tender_id}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="date"/>
+                                    <field name="user_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="tender_bid_view_tree" model="ir.ui.view">
+        <field name="name">tender.bid.tree</field>
+        <field name="model">tender.bid</field>
+        <field name="arch" type="xml">
+            <tree string="Tender Bids" decoration-success="state=='awarded'" 
+                  decoration-danger="state=='rejected'" decoration-info="state=='draft'">
+                <field name="name"/>
+                <field name="tender_id"/>
+                <field name="user_id"/>
+                <field name="technical_score"/>
+                <field name="financial_bid"/>
+                <field name="creation_date"/>
+                <field name="submission_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="tender_bid_view_search" model="ir.ui.view">
+        <field name="name">tender.bid.search</field>
+        <field name="model">tender.bid</field>
+        <field name="arch" type="xml">
+            <search string="Search Bids">
+                <field name="name"/>
+                <field name="tender_id"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="My Bids" name="my_bids" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Under Review" name="state_review" domain="[('state', '=', 'review')]"/>
+                <filter string="Approved" name="state_approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Submitted" name="state_submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter string="Awarded" name="state_awarded" domain="[('state', '=', 'awarded')]"/>
+                <filter string="Rejected" name="state_rejected" domain="[('state', '=', 'rejected')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Tender" name="groupby_tender" context="{'group_by': 'tender_id'}"/>
+                    <filter string="Status" name="groupby_state" context="{'group_by': 'state'}"/>
+                    <filter string="Responsible" name="groupby_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Submission Month" name="groupby_submission_month" context="{'group_by': 'submission_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="tender_bid_action" model="ir.actions.act_window">
+        <field name="name">Bids</field>
+        <field name="res_model">tender.bid</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_tender': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first bid
+            </p>
+            <p>
+                Prepare and track bids for tenders.
+            </p>
+        </field>
+    </record>
+    
+    <!-- GeM Portal Views -->
+    <record id="gem_portal_view_form" model="ir.ui.view">
+        <field name="name">gem.portal.form</field>
+        <field name="model">gem.portal</field>
+        <field name="arch" type="xml">
+            <form string="GeM Portal">
+                <header>
+                    <button name="action_test_connection" string="Test Connection" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_tenders" icon="fa-file-text-o">
+                            <field string="Tenders" name="tender_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_bids" icon="fa-gavel">
+                            <field string="Bids" name="bid_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Portal Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="api_endpoint"/>
+                            <field name="api_key"/>
+                            <field name="api_secret" password="True"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="connection_status"/>
+                            <field name="last_connection"/>
+                            <field name="token" invisible="1"/>
+                            <field name="token_expiry" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="gem_portal_view_tree" model="ir.ui.view">
+        <field name="name">gem.portal.tree</field>
+        <field name="model">gem.portal</field>
+        <field name="arch" type="xml">
+            <tree string="GeM Portals" decoration-success="connection_status=='connected'" 
+                  decoration-danger="connection_status=='failed'" decoration-info="connection_status=='not_tested'">
+                <field name="name"/>
+                <field name="api_endpoint"/>
+                <field name="connection_status"/>
+                <field name="last_connection"/>
+                <field name="tender_count"/>
+                <field name="bid_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="gem_portal_action" model="ir.actions.act_window">
+        <field name="name">GeM Portals</field>
+        <field name="res_model">gem.portal</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Setup your first GeM Portal integration
+            </p>
+            <p>
+                Configure Government e-Marketplace (GeM) portal integration.
+            </p>
+        </field>
+    </record>
+    
+    <!-- GeM Bid Views -->
+    <record id="gem_bid_view_form" model="ir.ui.view">
+        <field name="name">gem.bid.form</field>
+        <field name="model">gem.bid</field>
+        <field name="arch" type="xml">
+            <form string="GeM Bid">
+                <header>
+                    <button name="action_submit" string="Submit to GeM" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_check_status" string="Check Status" type="object" 
+                            attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                            
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,submitted,under_evaluation,awarded"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Bid Reference"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="gem_portal_id"/>
+                            <field name="tender_id"/>
+                            <field name="bid_id"/>
+                        </group>
+                        <group>
+                            <field name="bid_value"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="technical_score"/>
+                            <field name="submission_date"/>
+                            <field name="award_date" attrs="{'invisible': [('state', '!=', 'awarded')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Documents" name="documents">
+                            <field name="document_ids" context="{'default_tender_id': tender_id}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Add notes about this bid..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="gem_bid_view_tree" model="ir.ui.view">
+        <field name="name">gem.bid.tree</field>
+        <field name="model">gem.bid</field>
+        <field name="arch" type="xml">
+            <tree string="GeM Bids" decoration-success="state=='awarded'" 
+                  decoration-danger="state=='rejected'" decoration-info="state=='draft'">
+                <field name="name"/>
+                <field name="gem_portal_id"/>
+                <field name="tender_id"/>
+                <field name="bid_id"/>
+                <field name="bid_value"/>
+                <field name="technical_score"/>
+                <field name="submission_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="gem_bid_view_search" model="ir.ui.view">
+        <field name="name">gem.bid.search</field>
+        <field name="model">gem.bid</field>
+        <field name="arch" type="xml">
+            <search string="Search GeM Bids">
+                <field name="name"/>
+                <field name="gem_portal_id"/>
+                <field name="tender_id"/>
+                <field name="bid_id"/>
+                <separator/>
+                <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Submitted" name="state_submitted" domain="[('state', '=', 'submitted')]"/>
+                <filter string="Under Evaluation" name="state_evaluation" domain="[('state', '=', 'under_evaluation')]"/>
+                <filter string="Awarded" name="state_awarded" domain="[('state', '=', 'awarded')]"/>
+                <filter string="Rejected" name="state_rejected" domain="[('state', '=', 'rejected')]"/>
+                <filter string="Canceled" name="state_canceled" domain="[('state', '=', 'canceled')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="GeM Portal" name="groupby_portal" context="{'group_by': 'gem_portal_id'}"/>
+                    <filter string="Tender" name="groupby_tender" context="{'group_by': 'tender_id'}"/>
+                    <filter string="Status" name="groupby_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="gem_bid_action" model="ir.actions.act_window">
+        <field name="name">GeM Bids</field>
+        <field name="res_model">gem.bid</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_tender': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first GeM bid
+            </p>
+            <p>
+                Manage bids for Government e-Marketplace tenders.
+            </p>
+        </field>
+    </record>
+    
+    <!-- OCR Processing Views -->
+    <record id="tender_ocr_view_form" model="ir.ui.view">
+        <field name="name">tender.ocr.form</field>
+        <field name="model">tender.ocr</field>
+        <field name="arch" type="xml">
+            <form string="OCR Processing">
+                <header>
+                    <button name="action_process" string="Process" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="action_reset" string="Reset" type="object" 
+                            attrs="{'invisible': [('state', 'not in', ['done', 'failed'])]}"/>
+                            
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,processing,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_document" icon="fa-file-text-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">View Document</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_tender" icon="fa-file-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">View Tender</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="document_id"/>
+                            <field name="tender_id"/>
+                            <field name="processing_date"/>
+                            <field name="completion_date"/>
+                        </group>
+                        <group>
+                            <field name="confidence_score" widget="percentpie"/>
+                            <field name="error_message" attrs="{'invisible': [('state', '!=', 'failed')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="OCR Content" name="content">
+                            <field name="content_html" widget="html" attrs="{'invisible': [('content', '=', False)]}"/>
+                            <field name="content" invisible="1"/>
+                        </page>
+                        <page string="Extracted Data" name="extracted_data">
+                            <group>
+                                <group string="Key Information">
+                                    <field name="submission_deadline"/>
+                                    <field name="tender_value"/>
+                                    <field name="tender_id_number"/>
+                                    <field name="issuing_authority"/>
+                                </group>
+                                <group string="Raw Data">
+                                    <field name="extracted_data"/>
+                                    <field name="extracted_data_json" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Add notes about this OCR processing..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="tender_ocr_view_tree" model="ir.ui.view">
+        <field name="name">tender.ocr.tree</field>
+        <field name="model">tender.ocr</field>
+        <field name="arch" type="xml">
+            <tree string="OCR Processing" decoration-success="state=='done'" 
+                  decoration-danger="state=='failed'" decoration-info="state=='processing'">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="tender_id"/>
+                <field name="confidence_score" widget="percentage"/>
+                <field name="processing_date"/>
+                <field name="completion_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="tender_ocr_view_search" model="ir.ui.view">
+        <field name="name">tender.ocr.search</field>
+        <field name="model">tender.ocr</field>
+        <field name="arch" type="xml">
+            <search string="Search OCR">
+                <field name="name"/>
+                <field name="document_id"/>
+                <field name="tender_id"/>
+                <separator/>
+                <filter string="Draft" name="state_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Processing" name="state_processing" domain="[('state', '=', 'processing')]"/>
+                <filter string="Completed" name="state_done" domain="[('state', '=', 'done')]"/>
+                <filter string="Failed" name="state_failed" domain="[('state', '=', 'failed')]"/>
+                <separator/>
+                <filter string="High Confidence" name="high_confidence" domain="[('confidence_score', '>=', 80)]"/>
+                <filter string="Medium Confidence" name="medium_confidence" domain="[('confidence_score', '>=', 50), ('confidence_score', '<', 80)]"/>
+                <filter string="Low Confidence" name="low_confidence" domain="[('confidence_score', '<', 50)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Document" name="groupby_document" context="{'group_by': 'document_id'}"/>
+                    <filter string="Tender" name="groupby_tender" context="{'group_by': 'tender_id'}"/>
+                    <filter string="Status" name="groupby_state" context="{'group_by': 'state'}"/>
+                    <filter string="Processing Date" name="groupby_processing_date" context="{'group_by': 'processing_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="tender_ocr_action" model="ir.actions.act_window">
+        <field name="name">OCR Processing</field>
+        <field name="res_model">tender.ocr</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_groupby_tender': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No OCR processing yet
+            </p>
+            <p>
+                Process tender documents with OCR to extract key information.
+            </p>
+        </field>
+    </record>
+</odoo>
