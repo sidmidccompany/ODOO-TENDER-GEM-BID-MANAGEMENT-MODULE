@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="tender_menu_root" 
+              name="Tenders" 
+              web_icon="tender_management,static/description/icon.png" 
+              sequence="50"/>
+    
+    <!-- Tender Menu -->
+    <menuitem id="tender_menu" 
+              name="Tenders" 
+              parent="tender_management.tender_menu_root" 
+              sequence="10"/>
+    
+    <menuitem id="tender_menu_all" 
+              name="All Tenders" 
+              parent="tender_management.tender_menu" 
+              action="tender_management.tender_action" 
+              sequence="10"/>
+    
+    <menuitem id="tender_menu_my" 
+              name="My Tenders" 
+              parent="tender_management.tender_menu" 
+              action="tender_management.tender_action" 
+              sequence="20" 
+              context="{'search_default_my_tenders': 1}"/>
+    
+    <menuitem id="tender_menu_team" 
+              name="My Team's Tenders" 
+              parent="tender_management.tender_menu" 
+              action="tender_management.tender_action" 
+              sequence="30" 
+              context="{'search_default_my_team_tenders': 1}"/>
+    
+    <menuitem id="tender_menu_upcoming" 
+              name="Upcoming Deadlines" 
+              parent="tender_management.tender_menu" 
+              action="tender_management.tender_action" 
+              sequence="40" 
+              context="{'search_default_deadline_this_week': 1, 'search_default_deadline_next_week': 1}"/>
+    
+    <menuitem id="tender_menu_high_priority" 
+              name="High Priority" 
+              parent="tender_management.tender_menu" 
+              action="tender_management.tender_action" 
+              sequence="50" 
+              context="{'search_default_high_priority': 1}"/>
+    
+    <!-- Bid Menu -->
+    <menuitem id="bid_menu" 
+              name="Bids" 
+              parent="tender_management.tender_menu_root" 
+              sequence="20"/>
+    
+    <menuitem id="bid_menu_all" 
+              name="All Bids" 
+              parent="tender_management.bid_menu" 
+              action="tender_management.tender_bid_action" 
+              sequence="10"/>
+    
+    <menuitem id="bid_menu_my" 
+              name="My Bids" 
+              parent="tender_management.bid_menu" 
+              action="tender_management.tender_bid_action" 
+              sequence="20" 
+              context="{'search_default_my_bids': 1}"/>
+    
+    <menuitem id="gem_bid_menu" 
+              name="GeM Bids" 
+              parent="tender_management.bid_menu" 
+              action="tender_management.gem_bid_action" 
+              sequence="30"/>
+    
+    <!-- Document Menu -->
+    <menuitem id="document_menu" 
+              name="Documents" 
+              parent="tender_management.tender_menu_root" 
+              sequence="30"/>
+    
+    <menuitem id="document_menu_all" 
+              name="All Documents" 
+              parent="tender_management.document_menu" 
+              action="tender_management.tender_document_action" 
+              sequence="10"/>
+    
+    <menuitem id="document_menu_ocr" 
+              name="OCR Processing" 
+              parent="tender_management.document_menu" 
+              action="tender_management.tender_ocr_action" 
+              sequence="20"/>
+    
+    <!-- Analytics Menu -->
+    <menuitem id="analytics_menu" 
+              name="Analytics" 
+              parent="tender_management.tender_menu_root" 
+              sequence="40"/>
+    
+    <menuitem id="analytics_menu_report" 
+              name="Tender Analysis" 
+              parent="tender_management.analytics_menu" 
+              action="tender_management.tender_action" 
+              sequence="10" 
+              context="{'view_mode': 'pivot,graph'}"/>
+    
+    <menuitem id="analytics_menu_team" 
+              name="Team Performance" 
+              parent="tender_management.analytics_menu" 
+              action="tender_management.tender_team_action" 
+              sequence="20"/>
+    
+    <!-- Configuration Menu -->
+    <menuitem id="config_menu" 
+              name="Configuration" 
+              parent="tender_management.tender_menu_root" 
+              sequence="99" 
+              groups="tender_management.group_tender_manager"/>
+    
+    <menuitem id="config_menu_company" 
+              name="Company Profile" 
+              parent="tender_management.config_menu" 
+              action="tender_management.tender_company_action" 
+              sequence="10"/>
+    
+    <menuitem id="config_menu_department" 
+              name="Departments" 
+              parent="tender_management.config_menu" 
+              action="tender_management.tender_department_action" 
+              sequence="20"/>
+    
+    <menuitem id="config_menu_team" 
+              name="Teams" 
+              parent="tender_management.config_menu" 
+              action="tender_management.tender_team_action" 
+              sequence="30"/>
+    
+    <menuitem id="config_menu_gem" 
+              name="GeM Portals" 
+              parent="tender_management.config_menu" 
+              action="tender_management.gem_portal_action" 
+              sequence="40"/>
+    
+    <menuitem id="config_menu_tags" 
+              name="Tags" 
+              parent="tender_management.config_menu" 
+              action="tender_management.tender_tag_action" 
+              sequence="50"/>
+    
+    <menuitem id="config_menu_categories" 
+              name="Categories" 
+              parent="tender_management.config_menu" 
+              action="tender_management.tender_category_action" 
+              sequence="60"/>
+    
+    <menuitem id="config_menu_skills" 
+              name="Skills" 
+              parent="tender_management.config_menu" 
+              action="tender_management.tender_skill_action" 
+              sequence="70"/>
+    
+    <!-- Import/Export Menu -->
+    <menuitem id="import_export_menu" 
+              name="Import/Export" 
+              parent="tender_management.tender_menu_root" 
+              sequence="50"/>
+    
+    <menuitem id="import_menu" 
+              name="Import Tenders" 
+              parent="tender_management.import_export_menu" 
+              action="tender_management.tender_import_wizard_action" 
+              sequence="10"/>
+</odoo>
