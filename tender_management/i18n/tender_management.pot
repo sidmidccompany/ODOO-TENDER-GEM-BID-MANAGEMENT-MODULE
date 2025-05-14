@@ -1,0 +1,1472 @@
+# Translation template for Odoo Tender & GeM Bid Management module.
+# This file contains all translatable strings extracted from the module.
+# Copyright (C) 2024 YourCompany
+# This file is distributed under the same license as the tender_management package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 17.0\n"
+"Report-Msgid-Bugs-To: support@yourcompany.com\n"
+"POT-Creation-Date: 2024-04-20 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <support@yourcompany.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__active
+msgid "Active"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__amount_total
+msgid "Amount Total"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__name
+msgid "Analytics Name"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__attachment_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Attachments"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__awarded
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Awarded"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_bid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__bid_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__bid_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Bid"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__amount
+msgid "Bid Amount"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__date
+msgid "Bid Date"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__description
+msgid "Bid Description"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_bid
+#: model:ir.ui.menu,name:tender_management.menu_tender_bid
+msgid "Bids"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__cancelled
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Cancelled"
+msgstr ""
+
+#. module: tender_management
+#: model_terms:ir.actions.act_window,help:tender_management.action_tender_tender
+msgid "Click to create a new tender."
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__closed
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Closed"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__company_id
+msgid "Company"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_config
+msgid "Configuration"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__currency_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_dashboard
+msgid "Dashboard"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__description
+msgid "Description"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_document
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__document_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Document"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__document_type
+msgid "Document Type"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_document
+#: model:ir.ui.menu,name:tender_management.menu_tender_document
+msgid "Documents"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__draft
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Draft"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__estimated_value
+msgid "Estimated Value"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__evaluated
+msgid "Evaluated"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__evaluation_method
+msgid "Evaluation Method"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__is_gem
+msgid "GeM Tender"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_no
+msgid "GeM Bid Number"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_url
+msgid "GeM Bid URL"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_gem_wizard
+#: model:ir.ui.menu,name:tender_management.menu_tender_gem
+msgid "GeM Integration"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__id
+msgid "ID"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__item_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Items"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__name
+msgid "Name"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__name
+msgid "Document Name"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__notes
+msgid "Notes"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_processed
+msgid "OCR Processed"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_result
+msgid "OCR Result"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_ocr_wizard
+msgid "OCR Processing"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__published
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Published"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__reference
+msgid "Reference"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__submission_deadline
+msgid "Submission Deadline"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__state
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__state
+msgid "Status"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_tender
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__tender_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__tender_id
+msgid "Tender"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_analytics
+msgid "Tender Analytics"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_dashboard
+msgid "Tender Dashboard"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_tender
+#: model:ir.ui.menu,name:tender_management.menu_tender_tender
+msgid "Tenders"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_type
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__tender_type_id
+msgid "Tender Type"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_type
+#: model:ir.ui.menu,name:tender_management.menu_tender_type
+msgid "Tender Types"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__technical_score
+msgid "Technical Score"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__code
+msgid "Type Code"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__winning_bid
+msgid "Winning Bid"
+msgstr ""
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:150
+#, python-format
+msgid "You cannot delete a tender that is not in draft state."
+msgstr ""
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:205
+#, python-format
+msgid "Submission deadline cannot be in the past."
+msgstr ""
+
+
+# File: tender_management/i18n/en_US.po
+# Translation of Odoo Tender & GeM Bid Management module to English (US).
+# This file contains all translatable strings in English.
+# Copyright (C) 2024 YourCompany
+# This file is distributed under the same license as the tender_management package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 17.0\n"
+"Report-Msgid-Bugs-To: support@yourcompany.com\n"
+"POT-Creation-Date: 2024-04-20 12:00+0000\n"
+"PO-Revision-Date: 2024-04-20 12:00+0000\n"
+"Last-Translator: Admin <admin@yourcompany.com>\n"
+"Language-Team: English <support@yourcompany.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__active
+msgid "Active"
+msgstr "Active"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__amount_total
+msgid "Amount Total"
+msgstr "Total Amount"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__name
+msgid "Analytics Name"
+msgstr "Analytics Name"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__attachment_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Attachments"
+msgstr "Attachments"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__awarded
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Awarded"
+msgstr "Awarded"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_bid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__bid_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__bid_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Bid"
+msgstr "Bid"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__amount
+msgid "Bid Amount"
+msgstr "Bid Amount"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__date
+msgid "Bid Date"
+msgstr "Bid Date"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__description
+msgid "Bid Description"
+msgstr "Bid Description"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_bid
+#: model:ir.ui.menu,name:tender_management.menu_tender_bid
+msgid "Bids"
+msgstr "Bids"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__cancelled
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Cancelled"
+msgstr "Canceled"
+
+#. module: tender_management
+#: model_terms:ir.actions.act_window,help:tender_management.action_tender_tender
+msgid "Click to create a new tender."
+msgstr "Click to create a new tender."
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__closed
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Closed"
+msgstr "Closed"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__company_id
+msgid "Company"
+msgstr "Company"
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_config
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__currency_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__currency_id
+msgid "Currency"
+msgstr "Currency"
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_dashboard
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__description
+msgid "Description"
+msgstr "Description"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_document
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__document_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Document"
+msgstr "Document"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__document_type
+msgid "Document Type"
+msgstr "Document Type"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_document
+#: model:ir.ui.menu,name:tender_management.menu_tender_document
+msgid "Documents"
+msgstr "Documents"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__draft
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Draft"
+msgstr "Draft"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__estimated_value
+msgid "Estimated Value"
+msgstr "Estimated Value"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__evaluated
+msgid "Evaluated"
+msgstr "Evaluated"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__evaluation_method
+msgid "Evaluation Method"
+msgstr "Evaluation Method"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__is_gem
+msgid "GeM Tender"
+msgstr "GeM Tender"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_no
+msgid "GeM Bid Number"
+msgstr "GeM Bid Number"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_url
+msgid "GeM Bid URL"
+msgstr "GeM Bid URL"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_gem_wizard
+#: model:ir.ui.menu,name:tender_management.menu_tender_gem
+msgid "GeM Integration"
+msgstr "GeM Integration"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__item_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Items"
+msgstr "Items"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__name
+msgid "Name"
+msgstr "Name"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__name
+msgid "Document Name"
+msgstr "Document Name"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__notes
+msgid "Notes"
+msgstr "Notes"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_processed
+msgid "OCR Processed"
+msgstr "OCR Processed"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_result
+msgid "OCR Result"
+msgstr "OCR Result"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_ocr_wizard
+msgid "OCR Processing"
+msgstr "OCR Processing"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__partner_id
+msgid "Partner"
+msgstr "Partner"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__published
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Published"
+msgstr "Published"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__reference
+msgid "Reference"
+msgstr "Reference"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__submission_deadline
+msgid "Submission Deadline"
+msgstr "Submission Deadline"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__state
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__state
+msgid "Status"
+msgstr "Status"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_tender
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__tender_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__tender_id
+msgid "Tender"
+msgstr "Tender"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_analytics
+msgid "Tender Analytics"
+msgstr "Tender Analytics"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_dashboard
+msgid "Tender Dashboard"
+msgstr "Tender Dashboard"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_tender
+#: model:ir.ui.menu,name:tender_management.menu_tender_tender
+msgid "Tenders"
+msgstr "Tenders"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_type
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__tender_type_id
+msgid "Tender Type"
+msgstr "Tender Type"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_type
+#: model:ir.ui.menu,name:tender_management.menu_tender_type
+msgid "Tender Types"
+msgstr "Tender Types"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__technical_score
+msgid "Technical Score"
+msgstr "Technical Score"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__code
+msgid "Type Code"
+msgstr "Type Code"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__user_id
+msgid "Responsible User"
+msgstr "Responsible User"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__winning_bid
+msgid "Winning Bid"
+msgstr "Winning Bid"
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:150
+#, python-format
+msgid "You cannot delete a tender that is not in draft state."
+msgstr "You cannot delete a tender that is not in draft state."
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:205
+#, python-format
+msgid "Submission deadline cannot be in the past."
+msgstr "Submission deadline cannot be in the past."
+
+
+# File: tender_management/i18n/hi_IN.po
+# Translation of Odoo Tender & GeM Bid Management module to Hindi.
+# This file contains all translatable strings in Hindi.
+# Copyright (C) 2024 YourCompany
+# This file is distributed under the same license as the tender_management package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 17.0\n"
+"Report-Msgid-Bugs-To: support@yourcompany.com\n"
+"POT-Creation-Date: 2024-04-20 12:00+0000\n"
+"PO-Revision-Date: 2024-04-20 12:00+0000\n"
+"Last-Translator: Admin <admin@yourcompany.com>\n"
+"Language-Team: Hindi <support@yourcompany.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: hi_IN\n"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__active
+msgid "Active"
+msgstr "सक्रिय"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__amount_total
+msgid "Amount Total"
+msgstr "कुल राशि"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__name
+msgid "Analytics Name"
+msgstr "विश्लेषण नाम"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__attachment_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Attachments"
+msgstr "अनुलग्नक"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__awarded
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Awarded"
+msgstr "प्रदान किया गया"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_bid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__bid_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__bid_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Bid"
+msgstr "बोली"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__amount
+msgid "Bid Amount"
+msgstr "बोली राशि"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__date
+msgid "Bid Date"
+msgstr "बोली दिनांक"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__description
+msgid "Bid Description"
+msgstr "बोली विवरण"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_bid
+#: model:ir.ui.menu,name:tender_management.menu_tender_bid
+msgid "Bids"
+msgstr "बोलियां"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__cancelled
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Cancelled"
+msgstr "रद्द किया गया"
+
+#. module: tender_management
+#: model_terms:ir.actions.act_window,help:tender_management.action_tender_tender
+msgid "Click to create a new tender."
+msgstr "नया निविदा बनाने के लिए क्लिक करें।"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__closed
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Closed"
+msgstr "बंद किया गया"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__company_id
+msgid "Company"
+msgstr "कंपनी"
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_config
+msgid "Configuration"
+msgstr "कॉन्फ़िगरेशन"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_res_partner
+msgid "Contact"
+msgstr "संपर्क"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_uid
+msgid "Created by"
+msgstr "द्वारा बनाया गया"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_date
+msgid "Created on"
+msgstr "पर बनाया गया"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__currency_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__currency_id
+msgid "Currency"
+msgstr "मुद्रा"
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_dashboard
+msgid "Dashboard"
+msgstr "डैशबोर्ड"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__description
+msgid "Description"
+msgstr "विवरण"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__display_name
+msgid "Display Name"
+msgstr "प्रदर्शन नाम"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_document
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__document_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Document"
+msgstr "दस्तावेज़"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__document_type
+msgid "Document Type"
+msgstr "दस्तावेज़ प्रकार"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_document
+#: model:ir.ui.menu,name:tender_management.menu_tender_document
+msgid "Documents"
+msgstr "दस्तावेज़"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__draft
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Draft"
+msgstr "ड्राफ्ट"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__estimated_value
+msgid "Estimated Value"
+msgstr "अनुमानित मूल्य"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__evaluated
+msgid "Evaluated"
+msgstr "मूल्यांकन किया गया"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__evaluation_method
+msgid "Evaluation Method"
+msgstr "मूल्यांकन पद्धति"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__is_gem
+msgid "GeM Tender"
+msgstr "GeM निविदा"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_no
+msgid "GeM Bid Number"
+msgstr "GeM बोली संख्या"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_url
+msgid "GeM Bid URL"
+msgstr "GeM बोली URL"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_gem_wizard
+#: model:ir.ui.menu,name:tender_management.menu_tender_gem
+msgid "GeM Integration"
+msgstr "GeM एकीकरण"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__id
+msgid "ID"
+msgstr "आईडी"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__item_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Items"
+msgstr "आइटम"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_uid
+msgid "Last Updated by"
+msgstr "अंतिम अपडेट किया गया"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_date
+msgid "Last Updated on"
+msgstr "अंतिम अपडेट तिथि"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__name
+msgid "Name"
+msgstr "नाम"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__name
+msgid "Document Name"
+msgstr "दस्तावेज़ नाम"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__notes
+msgid "Notes"
+msgstr "नोट्स"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_processed
+msgid "OCR Processed"
+msgstr "OCR प्रसंस्करित"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_result
+msgid "OCR Result"
+msgstr "OCR परिणाम"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_ocr_wizard
+msgid "OCR Processing"
+msgstr "OCR प्रसंस्करण"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__partner_id
+msgid "Partner"
+msgstr "भागीदार"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__published
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Published"
+msgstr "प्रकाशित"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__reference
+msgid "Reference"
+msgstr "संदर्भ"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__submission_deadline
+msgid "Submission Deadline"
+msgstr "जमा करने की समय सीमा"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__state
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__state
+msgid "Status"
+msgstr "स्थिति"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_tender
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__tender_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__tender_id
+msgid "Tender"
+msgstr "निविदा"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_analytics
+msgid "Tender Analytics"
+msgstr "निविदा विश्लेषण"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_dashboard
+msgid "Tender Dashboard"
+msgstr "निविदा डैशबोर्ड"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_tender
+#: model:ir.ui.menu,name:tender_management.menu_tender_tender
+msgid "Tenders"
+msgstr "निविदाएं"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_type
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__tender_type_id
+msgid "Tender Type"
+msgstr "निविदा प्रकार"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_type
+#: model:ir.ui.menu,name:tender_management.menu_tender_type
+msgid "Tender Types"
+msgstr "निविदा प्रकार"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__technical_score
+msgid "Technical Score"
+msgstr "तकनीकी स्कोर"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__code
+msgid "Type Code"
+msgstr "प्रकार कोड"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__user_id
+msgid "Responsible User"
+msgstr "जिम्मेदार उपयोगकर्ता"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__winning_bid
+msgid "Winning Bid"
+msgstr "विजयी बोली"
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:150
+#, python-format
+msgid "You cannot delete a tender that is not in draft state."
+msgstr "आप ड्राफ्ट स्थिति में नहीं होने वाली निविदा को हटा नहीं सकते।"
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:205
+#, python-format
+msgid "Submission deadline cannot be in the past."
+msgstr "जमा करने की समय सीमा अतीत में नहीं हो सकती।"
+
+
+# File: tender_management/i18n/es.po
+# Translation of Odoo Tender & GeM Bid Management module to Spanish.
+# This file contains all translatable strings in Spanish.
+# Copyright (C) 2024 YourCompany
+# This file is distributed under the same license as the tender_management package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 17.0\n"
+"Report-Msgid-Bugs-To: support@yourcompany.com\n"
+"POT-Creation-Date: 2024-04-20 12:00+0000\n"
+"PO-Revision-Date: 2024-04-20 12:00+0000\n"
+"Last-Translator: Admin <admin@yourcompany.com>\n"
+"Language-Team: Spanish <support@yourcompany.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__amount_total
+msgid "Amount Total"
+msgstr "Importe Total"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__name
+msgid "Analytics Name"
+msgstr "Nombre de Análisis"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__attachment_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Attachments"
+msgstr "Adjuntos"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__awarded
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Awarded"
+msgstr "Adjudicado"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_bid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__bid_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__bid_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Bid"
+msgstr "Oferta"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__amount
+msgid "Bid Amount"
+msgstr "Importe de la Oferta"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__date
+msgid "Bid Date"
+msgstr "Fecha de la Oferta"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__description
+msgid "Bid Description"
+msgstr "Descripción de la Oferta"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_bid
+#: model:ir.ui.menu,name:tender_management.menu_tender_bid
+msgid "Bids"
+msgstr "Ofertas"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__cancelled
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: tender_management
+#: model_terms:ir.actions.act_window,help:tender_management.action_tender_tender
+msgid "Click to create a new tender."
+msgstr "Haga clic para crear una nueva licitación."
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__closed
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__create_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__currency_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: tender_management
+#: model:ir.ui.menu,name:tender_management.menu_tender_dashboard
+msgid "Dashboard"
+msgstr "Tablero"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__display_name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__display_name
+msgid "Display Name"
+msgstr "Nombre Mostrado"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_document
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__document_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Document"
+msgstr "Documento"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__document_type
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_document
+#: model:ir.ui.menu,name:tender_management.menu_tender_document
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__draft
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__estimated_value
+msgid "Estimated Value"
+msgstr "Valor Estimado"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__evaluated
+msgid "Evaluated"
+msgstr "Evaluado"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__evaluation_method
+msgid "Evaluation Method"
+msgstr "Método de Evaluación"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__is_gem
+msgid "GeM Tender"
+msgstr "Licitación GeM"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_no
+msgid "GeM Bid Number"
+msgstr "Número de Oferta GeM"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__gem_bid_url
+msgid "GeM Bid URL"
+msgstr "URL de Oferta GeM"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_gem_wizard
+#: model:ir.ui.menu,name:tender_management.menu_tender_gem
+msgid "GeM Integration"
+msgstr "Integración GeM"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__id
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__item_ids
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_form
+msgid "Items"
+msgstr "Elementos"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_uid
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_analytics__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__write_date
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__name
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__name
+msgid "Document Name"
+msgstr "Nombre del Documento"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_processed
+msgid "OCR Processed"
+msgstr "Procesado por OCR"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__ocr_result
+msgid "OCR Result"
+msgstr "Resultado OCR"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_ocr_wizard
+msgid "OCR Processing"
+msgstr "Procesamiento OCR"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__partner_id
+msgid "Partner"
+msgstr "Socio"
+
+#. module: tender_management
+#: model:ir.model.fields.selection,name:tender_management.selection__tender_tender__state__published
+#: model_terms:ir.ui.view,arch_db:tender_management.view_tender_filter
+msgid "Published"
+msgstr "Publicado"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__reference
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__submission_deadline
+msgid "Submission Deadline"
+msgstr "Fecha Límite de Presentación"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__state
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_tender
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__tender_id
+#: model:ir.model.fields,field_description:tender_management.field_tender_document__tender_id
+msgid "Tender"
+msgstr "Licitación"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_analytics
+msgid "Tender Analytics"
+msgstr "Análisis de Licitaciones"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_dashboard
+msgid "Tender Dashboard"
+msgstr "Tablero de Licitaciones"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_tender
+#: model:ir.ui.menu,name:tender_management.menu_tender_tender
+msgid "Tenders"
+msgstr "Licitaciones"
+
+#. module: tender_management
+#: model:ir.model,name:tender_management.model_tender_type
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__tender_type_id
+msgid "Tender Type"
+msgstr "Tipo de Licitación"
+
+#. module: tender_management
+#: model:ir.actions.act_window,name:tender_management.action_tender_type
+#: model:ir.ui.menu,name:tender_management.menu_tender_type
+msgid "Tender Types"
+msgstr "Tipos de Licitación"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__technical_score
+msgid "Technical Score"
+msgstr "Puntuación Técnica"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_type__code
+msgid "Type Code"
+msgstr "Código de Tipo"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_tender__user_id
+msgid "Responsible User"
+msgstr "Usuario Responsable"
+
+#. module: tender_management
+#: model:ir.model.fields,field_description:tender_management.field_tender_bid__winning_bid
+msgid "Winning Bid"
+msgstr "Oferta Ganadora"
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:150
+#, python-format
+msgid "You cannot delete a tender that is not in draft state."
+msgstr "No puede eliminar una licitación que no esté en estado borrador."
+
+#. module: tender_management
+#: code:addons/tender_management/models/tender.py:205
+#, python-format
+msgid "Submission deadline cannot be in the past."
+msgstr "La fecha límite de presentación no puede estar en el pasado."
