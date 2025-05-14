@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Tender Bid Report -->
+        <record id="action_report_tender_bid" model="ir.actions.report">
+            <field name="name">Tender Bid</field>
+            <field name="model">tender.bid</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tender_management.report_tender_bid</field>
+            <field name="report_file">tender_management.report_tender_bid</field>
+            <field name="print_report_name">'Tender Bid - %s' % (object.reference or 'Draft')</field>
+            <field name="binding_model_id" ref="model_tender_bid"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="tender_management.paperformat_tender_report"/>
+        </record>
+
+        <!-- Tender Application Report -->
+        <record id="action_report_tender_application" model="ir.actions.report">
+            <field name="name">Tender Application</field>
+            <field name="model">tender.application</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tender_management.report_tender_application</field>
+            <field name="report_file">tender_management.report_tender_application</field>
+            <field name="print_report_name">'Tender Application - %s' % (object.bid_id.reference or 'Draft')</field>
+            <field name="binding_model_id" ref="model_tender_application"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="tender_management.paperformat_tender_report"/>
+        </record>
+
+        <!-- Tender Bid Summary Report -->
+        <record id="action_report_tender_bid_summary" model="ir.actions.report">
+            <field name="name">Tender Bid Summary</field>
+            <field name="model">tender.bid</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tender_management.report_tender_bid_summary</field>
+            <field name="report_file">tender_management.report_tender_bid_summary</field>
+            <field name="print_report_name">'Tender Summary - %s' % (object.reference or 'Draft')</field>
+            <field name="binding_model_id" ref="model_tender_bid"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="tender_management.paperformat_tender_report"/>
+        </record>
+
+        <!-- Tender Requirements Checklist Report -->
+        <record id="action_report_tender_requirements" model="ir.actions.report">
+            <field name="name">Requirements Checklist</field>
+            <field name="model">tender.bid</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tender_management.report_tender_requirements</field>
+            <field name="report_file">tender_management.report_tender_requirements</field>
+            <field name="print_report_name">'Requirements Checklist - %s' % (object.reference or 'Draft')</field>
+            <field name="binding_model_id" ref="model_tender_bid"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="tender_management.paperformat_tender_report"/>
+        </record>
+
+        <!-- Tender Document List Report -->
+        <record id="action_report_tender_documents" model="ir.actions.report">
+            <field name="name">Document List</field>
+            <field name="model">tender.bid</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tender_management.report_tender_documents</field>
+            <field name="report_file">tender_management.report_tender_documents</field>
+            <field name="print_report_name">'Document List - %s' % (object.reference or 'Draft')</field>
+            <field name="binding_model_id" ref="model_tender_bid"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="tender_management.paperformat_tender_report"/>
+        </record>
+
+        <!-- Tender Bid Report Template -->
+        <template id="report_tender_bid">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.report_tender_bid_document"/>
+                </t>
+            </t>
+        </template>
+
+        <!-- Tender Application Report Template -->
+        <template id="report_tender_application">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.report_tender_application_summary"/>
+                </t>
+            </t>
+        </template>
+
+        <!-- Tender Bid Summary Report Template -->
+        <template id="report_tender_bid_summary">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.tender_external_layout">
+                        <div class="page">
+                            <h2 class="text-center mb-4">Tender Bid Summary</h2>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 t-field="o.name"/>
+                                    <p><strong>Reference:</strong> <span t-field="o.reference"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <td class="table-active">Organization</td>
+                                                <td><span t-field="o.organization_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-active">Type</td>
+                                                <td><span t-field="o.type_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-active">Submission Date</td>
+                                                <td><span t-field="o.submission_date"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-active">Closing Date</td>
+                                                <td><span t-field="o.closing_date"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <td class="table-active">Stage</td>
+                                                <td><span t-field="o.stage_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-active">Responsible</td>
+                                                <td><span t-field="o.user_id.name"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-active">Estimated Value</td>
+                                                <td><span t-field="o.estimated_value" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-active">Tags</td>
+                                                <td>
+                                                    <t t-foreach="o.tag_ids" t-as="tag">
+                                                        <span t-field="tag.name" class="badge badge-pill"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5>Description</h5>
+                                    <p t-field="o.description"/>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4" t-if="o.application_ids">
+                                <div class="col-12">
+                                    <h5>Applications</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Reference</th>
+                                                    <th>Submission Date</th>
+                                                    <th>Amount</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="o.application_ids" t-as="app">
+                                                    <tr>
+                                                        <td><span t-field="app.name"/></td>
+                                                        <td><span t-field="app.submission_date"/></td>
+                                                        <td><span t-field="app.amount" t-options='{"widget": "monetary", "display_currency": app.currency_id}'/></td>
+                                                        <td><span t-field="app.state"/></td>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5>Key Requirements</h5>
+                                    <t t-if="o.requirement_ids">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Requirement</th>
+                                                        <th>Description</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-foreach="o.requirement_ids" t-as="req">
+                                                        <tr>
+                                                            <td><span t-field="req.name"/></td>
+                                                            <td><span t-field="req.description"/></td>
+                                                            <td><span t-field="req.state"/></td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <p>No requirements defined.</p>
+                                    </t>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <p class="font-italic">Confidential: For internal use only</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Tender Requirements Report Template -->
+        <template id="report_tender_requirements">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.tender_external_layout">
+                        <div class="page">
+                            <h2 class="text-center mb-4">Tender Requirements Checklist</h2>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 t-field="o.name"/>
+                                    <p><strong>Reference:</strong> <span t-field="o.reference"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <p><strong>Organization:</strong> <span t-field="o.organization_id.name"/></p>
+                                    <p><strong>Type:</strong> <span t-field="o.type_id.name"/></p>
+                                </div>
+                                <div class="col-6">
+                                    <p><strong>Submission Date:</strong> <span t-field="o.submission_date"/></p>
+                                    <p><strong>Closing Date:</strong> <span t-field="o.closing_date"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5>Requirements Checklist</h5>
+                                    <t t-if="o.requirement_ids">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Requirement</th>
+                                                        <th>Description</th>
+                                                        <th>Status</th>
+                                                        <th>Remarks</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-set="req_count" t-value="1"/>
+                                                    <t t-foreach="o.requirement_ids" t-as="req">
+                                                        <tr>
+                                                            <td><span t-esc="req_count"/></td>
+                                                            <td><span t-field="req.name"/></td>
+                                                            <td><span t-field="req.description"/></td>
+                                                            <td>
+                                                                <span t-field="req.state"/>
+                                                            </td>
+                                                            <td><span t-field="req.remarks"/></td>
+                                                        </tr>
+                                                        <t t-set="req_count" t-value="req_count + 1"/>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <p>No requirements defined for this tender.</p>
+                                    </t>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <h5>Checklist Verification</h5>
+                                    <div class="row mt-4">
+                                        <div class="col-6">
+                                            <p>Verified By: ___________________________</p>
+                                            <p>Date: ______________________________</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Approved By: ___________________________</p>
+                                            <p>Date: ______________________________</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <p class="font-italic">Confidential: For internal use only</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Tender Documents Report Template -->
+        <template id="report_tender_documents">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.tender_external_layout">
+                        <div class="page">
+                            <h2 class="text-center mb-4">Tender Documents List</h2>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 t-field="o.name"/>
+                                    <p><strong>Reference:</strong> <span t-field="o.reference"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <p><strong>Organization:</strong> <span t-field="o.organization_id.name"/></p>
+                                    <p><strong>Type:</strong> <span t-field="o.type_id.name"/></p>
+                                </div>
+                                <div class="col-6">
+                                    <p><strong>Submission Date:</strong> <span t-field="o.submission_date"/></p>
+                                    <p><strong>Closing Date:</strong> <span t-field="o.closing_date"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <h5>Documents Checklist</h5>
+                                    <t t-if="o.document_ids">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Document Name</th>
+                                                        <th>Type</th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <t t-set="doc_count" t-value="1"/>
+                                                    <t t-foreach="o.document_ids" t-as="doc">
+                                                        <tr>
+                                                            <td><span t-esc="doc_count"/></td>
+                                                            <td><span t-field="doc.name"/></td>
+                                                            <td><span t-field="doc.type"/></td>
+                                                            <td><span t-field="doc.date"/></td>
+                                                            <td><span t-field="doc.state"/></td>
+                                                        </tr>
+                                                        <t t-set="doc_count" t-value="doc_count + 1"/>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <p>No documents attached to this tender.</p>
+                                    </t>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <h5>Document Verification</h5>
+                                    <div class="row mt-4">
+                                        <div class="col-6">
+                                            <p>Prepared By: ___________________________</p>
+                                            <p>Date: ______________________________</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Verified By: ___________________________</p>
+                                            <p>Date: ______________________________</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <p class="font-italic">Confidential: For internal use only</p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
