@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Team Form View -->
+    <record id="tender_team_view_form" model="ir.ui.view">
+        <field name="name">tender.team.form</field>
+        <field name="model">tender.team</field>
+        <field name="arch" type="xml">
+            <form string="Team">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_tenders" icon="fa-file-text-o">
+                            <field string="Tenders" name="tender_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_active_tenders" icon="fa-tasks">
+                            <field string="Active Tenders" name="active_tender_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" name="action_send_team_report" type="object" icon="fa-bar-chart">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="success_rate" widget="percentage"/></span>
+                                <span class="o_stat_text">Success Rate</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Team Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="leader_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="department_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="creation_date"/>
+                            <field name="specialization_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Team Members" name="members">
+                            <field name="member_ids">
+                                <tree editable="bottom">
+                                    <field name="user_id"/>
+                                    <field name="role"/>
+                                    <field name="role_description"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
+                                    <field name="active_tender_count"/>
+                                    <field name="workload"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Add a description for this team..."/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Add notes about this team..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="tender_team_view_tree" model="ir.ui.view">
+        <field name="name">tender.team.tree</field>
+        <field name="model">tender.team</field>
+        <field name="arch" type="xml">
+            <tree string="Teams">
+                <field name="name"/>
+                <field name="leader_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="department_id"/>
+                <field name="tender_count"/>
+                <field name="active_tender_count"/>
+                <field name="success_rate" widget="percentage"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="tender_team_view_search" model="ir.ui.view">
+        <field name="name">tender.team.search</field>
+        <field name="model">tender.team</field>
+        <field name="arch" type="xml">
+            <search string="Search Teams">
+                <field name="name"/>
+                <field name="leader_id"/>
+                <field name="department_id"/>
+                <field name="member_ids"/>
+                <separator/>
+                <filter string="My Teams" name="my_teams" domain="[('member_ids.user_id', '=', uid)]"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Department" name="groupby_department" context="{'group_by': 'department_id'}"/>
+                    <filter string="Team Leader" name="groupby_leader" context="{'group_by': 'leader_id'}"/>
+                    <filter string="Company" name="groupby_company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="tender_team_action" model="ir.actions.act_window">
+        <field name="name">Teams</field>
+        <field name="res_model">tender.team</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first team
+            </p>
+            <p>
+                Create teams to manage tender preparation and bidding.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Team Member Form View -->
+    <record id="tender_team_member_view_form" model="ir.ui.view">
+        <field name="name">tender.team.member.form</field>
+        <field name="model">tender.team.member</field>
+        <field name="arch" type="xml">
+            <form string="Team Member">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="team_id"/>
+                            <field name="user_id"/>
+                            <field name="role"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="active_tender_count"/>
+                            <field name="workload"/>
+                            <field name="skill_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Role Description" name="role_description">
+                            <field name="role_description" placeholder="Add a description for this member's role..."/>
+                        </page>
+                        <page string="Assigned Tenders" name="tenders">
+                            <field name="tender_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Skill Form View -->
+    <record id="tender_skill_view_form" model="ir.ui.view">
+        <field name="name">tender.skill.form</field>
+        <field name="model">tender.skill</field>
+        <field name="arch" type="xml">
+            <form string="Skill">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Skill Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category"/>
+                            <field name="member_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="Add a description for this skill..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="tender_skill_view_tree" model="ir.ui.view">
+        <field name="name">tender.skill.tree</field>
+        <field name="model">tender.skill</field>
+        <field name="arch" type="xml">
+            <tree string="Skills">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="member_count"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="tender_skill_action" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">tender.skill</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first skill
+            </p>
+            <p>
+                Define skills for team members.
+            </p>
+        </field>
+    </record>
+    
+    <!-- Analytics Form View -->
+    <record id="tender_analytics_view_form" model="ir.ui.view">
+        <field name="name">tender.analytics.form</field>
+        <field name="model">tender.analytics</field>
+        <field name="arch" type="xml">
+            <form string="Tender Analytics">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tender_id"/>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="tender_type"/>
+                            <field name="tender_value"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Timeline Analysis" name="timeline">
+                            <group>
+                                <group string="Time Metrics">
+                                    <field name="preparation_time"/>
+                                    <field name="response_time"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Success Metrics" name="success">
+                            <group>
+                                <group>
+                                    <field name="is_successful"/>
+                                    <field name="win_probability" widget="percentage"/>
+                                    <field name="competing_bids"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Cost Analysis" name="cost">
+                            <group>
+                                <group>
+                                    <field name="preparation_cost"/>
+                                    <field name="submission_cost"/>
+                                    <field name="total_cost"/>
+                                    <field name="roi_if_won" widget="percentage"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Data Visualization" name="visualization" attrs="{'invisible': [('data_json', '=', False)]}">
+                            <field name="data_json" widget="analytics_dashboard" invisible="1"/>
+                            <!-- Custom visualization widget would be used here -->
+                            <div class="oe_chart_container">
+                                <field name="data_json" widget="tender_analytics_chart"/>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="tender_analytics_view_tree" model="ir.ui.view">
+        <field name="name">tender.analytics.tree</field>
+        <field name="model">tender.analytics</field>
+        <field name="arch" type="xml">
+            <tree string="Tender Analytics">
+                <field name="tender_id"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="preparation_time"/>
+                <field name="response_time"/>
+                <field name="is_successful"/>
+                <field name="win_probability" widget="percentage"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="tender_analytics_view_search" model="ir.ui.view">
+        <field name="name">tender.analytics.search</field>
+        <field name="model">tender.analytics</field>
+        <field name="arch" type="xml">
+            <search string="Search Analytics">
+                <field name="tender_id"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Successful" name="successful" domain="[('is_successful', '=', True)]"/>
+                <filter string="Unsuccessful" name="unsuccessful" domain="[('is_successful', '=', False)]"/>
+                <separator/>
+                <filter string="High Probability (>75%)" name="high_probability" domain="[('win_probability', '>=', 75)]"/>
+                <filter string="Medium Probability (25-75%)" name="medium_probability" domain="[('win_probability', '>=', 25), ('win_probability', '<', 75)]"/>
+                <filter string="Low Probability (<25%)" name="low_probability" domain="[('win_probability', '<', 25)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Tender" name="groupby_tender" context="{'group_by': 'tender_id'}"/>
+                    <filter string="Status" name="groupby_state" context="{'group_by': 'state'}"/>
+                    <filter string="Tender Type" name="groupby_type" context="{'group_by': 'tender_type'}"/>
+                    <filter string="Success" name="groupby_success" context="{'group_by': 'is_successful'}"/>
+                    <filter string="Date" name="groupby_date" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    
+    <record id="tender_analytics_view_pivot" model="ir.ui.view">
+        <field name="name">tender.analytics.pivot</field>
+        <field name="model">tender.analytics</field>
+        <field name="arch" type="xml">
+            <pivot string="Analytics Pivot" sample="1">
+                <field name="tender_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="tender_value" type="measure"/>
+                <field name="preparation_time" type="measure"/>
+                <field name="total_cost" type="measure"/>
+                <field name="win_probability" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    
+    <record id="tender_analytics_view_graph" model="ir.ui.view">
+        <field name="name">tender.analytics.graph</field>
+        <field name="model">tender.analytics</field>
+        <field name="arch" type="xml">
+            <graph string="Analytics Graph" type="bar" sample="1">
+                <field name="state"/>
+                <field name="tender_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    
+    <record id="tender_analytics_action" model="ir.actions.act_window">
+        <field name="name">Analytics</field>
+        <field name="res_model">tender.analytics</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No analytics data yet
+            </p>
+            <p>
+                Analytics data will be generated automatically when tenders progress through their lifecycle.
+            </p>
+        </field>
+    </record>
+</odoo>
