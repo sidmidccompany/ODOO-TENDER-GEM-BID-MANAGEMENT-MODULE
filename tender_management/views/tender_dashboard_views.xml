@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard View -->
+    <record id="tender_dashboard_view_form" model="ir.ui.view">
+        <field name="name">tender.dashboard.form</field>
+        <field name="model">tender.tender</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard" create="false" edit="false">
+                <div class="row">
+                    <div class="col-12">
+                        <h1>Tender Management Dashboard</h1>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="o_dashboard_card mb-4">
+                            <div class="o_dashboard_card_header">
+                                <h3 class="o_dashboard_card_title">Active Tenders</h3>
+                            </div>
+                            <div class="o_dashboard_card_content">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h1 class="o_dashboard_value">
+                                            <t t-esc="active_tenders_count"/>
+                                        </h1>
+                                        <p class="o_dashboard_text_info">
+                                            <span><t t-esc="upcoming_tenders_count"/> upcoming in the next 7 days</span>
+                                        </p>
+                                    </div>
+                                    <div class="o_dashboard_icon fa fa-file-text-o fa-4x text-primary"/>
+                                </div>
+                            </div>
+                            <div class="o_dashboard_card_footer">
+                                <a name="action_view_active_tenders" type="object" class="o_dashboard_action">
+                                    View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="o_dashboard_card mb-4">
+                            <div class="o_dashboard_card_header">
+                                <h3 class="o_dashboard_card_title">Submitted Bids</h3>
+                            </div>
+                            <div class="o_dashboard_card_content">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h1 class="o_dashboard_value">
+                                            <t t-esc="submitted_bids_count"/>
+                                        </h1>
+                                        <p class="o_dashboard_text_info">
+                                            <span><t t-esc="pending_bids_count"/> pending bids</span>
+                                        </p>
+                                    </div>
+                                    <div class="o_dashboard_icon fa fa-gavel fa-4x text-success"/>
+                                </div>
+                            </div>
+                            <div class="o_dashboard_card_footer">
+                                <a name="action_view_submitted_bids" type="object" class="o_dashboard_action">
+                                    View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="o_dashboard_card mb-4">
+                            <div class="o_dashboard_card_header">
+                                <h3 class="o_dashboard_card_title">Success Rate</h3>
+                            </div>
+                            <div class="o_dashboard_card_content">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h1 class="o_dashboard_value">
+                                            <t t-esc="success_rate"/> %
+                                        </h1>
+                                        <p class="o_dashboard_text_info">
+                                            <span><t t-esc="awarded_count"/> awarded out of <t t-esc="total_submitted"/> submitted</span>
+                                        </p>
+                                    </div>
+                                    <div class="o_dashboard_icon fa fa-trophy fa-4x text-warning"/>
+                                </div>
+                            </div>
+                            <div class="o_dashboard_card_footer">
+                                <a name="action_view_analytics" type="object" class="o_dashboard_action">
+                                    View Analytics
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 col-sm-12">
+                        <div class="o_dashboard_card mb-4">
+                            <div class="o_dashboard_card_header">
+                                <h3 class="o_dashboard_card_title">Upcoming Deadlines</h3>
+                            </div>
+                            <div class="o_dashboard_card_content">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Tender</th>
+                                                <th>Deadline</th>
+                                                <th>Days Left</th>
+                                                <th>Responsible</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="upcoming_deadlines" t-as="tender">
+                                                <td><t t-esc="tender.name"/></td>
+                                                <td><t t-esc="tender.submission_date"/></td>
+                                                <td>
+                                                    <span t-attf-class="badge badge-pill badge-#{tender.days_to_deadline &lt;= 3 ? 'danger' : (tender.days_to_deadline &lt;= 7 ? 'warning' : 'info')}">
+                                                        <t t-esc="tender.days_to_deadline"/> days
+                                                    </span>
+                                                </td>
+                                                <td><t t-esc="tender.user_id.name"/></td>
+                                                <td><t t-esc="tender.state"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="o_dashboard_card_footer">
+                                <a name="action_view_upcoming_deadlines" type="object" class="o_dashboard_action">
+                                    View All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-12">
+                        <div class="o_dashboard_card mb-4">
+                            <div class="o_dashboard_card_header">
+                                <h3 class="o_dashboard_card_title">Department Performance</h3>
+                            </div>
+                            <div class="o_dashboard_card_content">
+                                <div class="o_dashboard_graph">
+                                    <field name="department_performance_chart" widget="dashboard_graph"/>
+                                </div>
+                            </div>
+                            <div class="o_dashboard_card_footer">
+                                <a name="action_view_department_performance" type="object" class="o_dashboard_action">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="o_dashboard_card mb-4">
+                            <div class="o_dashboard_card_header">
+                                <h3 class="o_dashboard_card_title">Recent Activities</h3>
+                            </div>
+                            <div class="o_dashboard_card_content">
+                                <field name="recent_activity_ids" widget="mail_thread"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Dashboard Action -->
+    <record id="tender_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">tender.tender</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="tender_dashboard_view_form"/>
+        <field name="target">current</field>
+        <field name="context">{'dashboard_mode': True}</field>
+    </record>
+    
+    <!-- Dashboard Menu -->
+    <menuitem id="tender_dashboard_menu" 
+              name="Dashboard" 
+              parent="tender_management.tender_menu_root" 
+              action="tender_dashboard_action" 
+              sequence="1"/>
+</odoo>
