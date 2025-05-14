@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Security Groups -->
+        <record id="group_tender_user" model="res.groups">
+            <field name="name">Tender User</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Users can create and manage tenders.</field>
+        </record>
+
+        <record id="group_tender_manager" model="res.groups">
+            <field name="name">Tender Manager</field>
+            <field name="category_id" ref="base.module_category_sales_sales"/>
+            <field name="implied_ids" eval="[(4, ref('group_tender_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">Managers can approve tenders and configure the module.</field>
+        </record>
+
+        <!-- Record Rules -->
+        <!-- Tender Bid Rules -->
+        <record id="tender_bid_comp_rule" model="ir.rule">
+            <field name="name">Tender Bid: multi-company rule</field>
+            <field name="model_id" ref="model_tender_bid"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="tender_bid_personal_rule" model="ir.rule">
+            <field name="name">Tender Bid: personal bids rule</field>
+            <field name="model_id" ref="model_tender_bid"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_tender_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="tender_bid_manager_rule" model="ir.rule">
+            <field name="name">Tender Bid: manager access all</field>
+            <field name="model_id" ref="model_tender_bid"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tender_manager'))]"/>
+        </record>
+
+        <!-- Tender Document Rules -->
+        <record id="tender_document_comp_rule" model="ir.rule">
+            <field name="name">Tender Document: multi-company rule</field>
+            <field name="model_id" ref="model_tender_document"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="tender_document_user_rule" model="ir.rule">
+            <field name="name">Tender Document: user documents</field>
+            <field name="model_id" ref="model_tender_document"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_tender_user'))]"/>
+        </record>
+
+        <record id="tender_document_manager_rule" model="ir.rule">
+            <field name="name">Tender Document: manager all</field>
+            <field name="model_id" ref="model_tender_document"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tender_manager'))]"/>
+        </record>
+
+        <!-- Tender Application Rules -->
+        <record id="tender_application_comp_rule" model="ir.rule">
+            <field name="name">Tender Application: multi-company rule</field>
+            <field name="model_id" ref="model_tender_application"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="tender_application_user_rule" model="ir.rule">
+            <field name="name">Tender Application: user applications</field>
+            <field name="model_id" ref="model_tender_application"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_tender_user'))]"/>
+        </record>
+        
+        <record id="tender_application_manager_rule" model="ir.rule">
+            <field name="name">Tender Application: manager all</field>
+            <field name="model_id" ref="model_tender_application"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_tender_manager'))]"/>
+        </record>
+
+        <!-- Menu Access Rights -->
+        <record id="tender_management.menu_tender_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('tender_management.group_tender_user')])]"/>
+        </record>
+
+        <record id="tender_management.menu_tender_config" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('tender_management.group_tender_manager')])]"/>
+        </record>
+    </data>
+</odoo>
