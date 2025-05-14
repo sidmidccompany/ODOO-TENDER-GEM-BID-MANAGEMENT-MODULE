@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tender Analytics SQL Query -->
+        <record id="tender_bid_analysis_report" model="ir.ui.view">
+            <field name="name">tender.bid.analysis.tree</field>
+            <field name="model">tender.bid</field>
+            <field name="arch" type="xml">
+                <tree string="Tender Bid Analysis" create="false">
+                    <field name="name"/>
+                    <field name="reference"/>
+                    <field name="organization_id"/>
+                    <field name="type_id"/>
+                    <field name="submission_date"/>
+                    <field name="closing_date"/>
+                    <field name="stage_id"/>
+                    <field name="user_id"/>
+                    <field name="estimated_value" sum="Total Estimated Value"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Tender Bid Success Rate Analysis -->
+        <record id="tender_success_rate_report" model="ir.ui.view">
+            <field name="name">tender.success.rate.pivot</field>
+            <field name="model">tender.bid</field>
+            <field name="arch" type="xml">
+                <pivot string="Tender Success Rate" display_quantity="true">
+                    <field name="type_id" type="row"/>
+                    <field name="stage_id" type="col"/>
+                    <field name="estimated_value" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Tender Bid Analysis Graph View -->
+        <record id="tender_bid_analysis_graph" model="ir.ui.view">
+            <field name="name">tender.bid.analysis.graph</field>
+            <field name="model">tender.bid</field>
+            <field name="arch" type="xml">
+                <graph string="Tender Bid Analysis" type="bar">
+                    <field name="type_id"/>
+                    <field name="stage_id"/>
+                    <field name="estimated_value" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Tender Bid Analysis Search View -->
+        <record id="tender_bid_analysis_search" model="ir.ui.view">
+            <field name="name">tender.bid.analysis.search</field>
+            <field name="model">tender.bid</field>
+            <field name="arch" type="xml">
+                <search string="Tender Bid Analysis">
+                    <field name="name" string="Tender Bid"/>
+                    <field name="reference"/>
+                    <field name="organization_id"/>
+                    <field name="type_id"/>
+                    <field name="user_id"/>
+                    <filter string="My Tenders" name="my_tenders" domain="[('user_id', '=', uid)]"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Won" name="won" domain="[('stage_id.is_won', '=', True)]"/>
+                    <filter string="Lost" name="lost" domain="[('stage_id.is_lost', '=', True)]"/>
+                    <filter string="Open" name="open" domain="[('stage_id.is_closed', '=', False)]"/>
+                    <separator/>
+                    <filter string="Current Year" name="current_year" domain="[('submission_date', '&gt;=', datetime.datetime.now().strftime('%Y-01-01'))]"/>
+                    <filter string="Previous Year" name="prev_year" domain="[('submission_date', '&gt;=', (datetime.datetime.now() - relativedelta(years=1)).strftime('%Y-01-01')), ('submission_date', '&lt;', datetime.datetime.now().strftime('%Y-01-01'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Type" name="type" context="{'group_by': 'type_id'}"/>
+                        <filter string="Stage" name="stage" context="{'group_by': 'stage_id'}"/>
+                        <filter string="Organization" name="organization" context="{'group_by': 'organization_id'}"/>
+                        <filter string="Responsible" name="user" context="{'group_by': 'user_id'}"/>
+                        <filter string="Company" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                        <separator/>
+                        <filter string="Submission Month" name="submission_month" context="{'group_by': 'submission_date:month'}"/>
+                        <filter string="Submission Year" name="submission_year" context="{'group_by': 'submission_date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tender Analytics Action -->
+        <record id="action_tender_bid_analysis" model="ir.actions.act_window">
+            <field name="name">Tender Analysis</field>
+            <field name="res_model">tender.bid</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="search_view_id" ref="tender_bid_analysis_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_current_year': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No data to analyze yet!
+                </p>
+                <p>
+                    Create tender bids to analyze tender win rates and performance.
+                </p>
+            </field>
+        </record>
+
+        <!-- SQL View for Tender Statistics -->
+        <record id="view_tender_statistics_report" model="ir.ui.view">
+            <field name="name">tender.statistics.report.tree</field>
+            <field name="model">report.tender.statistics</field>
+            <field name="arch" type="xml">
+                <tree string="Tender Statistics" create="false">
+                    <field name="name" invisible="1"/>
+                    <field name="date" invisible="1"/>
+                    <field name="user_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="tender_count"/>
+                    <field name="won_count"/>
+                    <field name="lost_count"/>
+                    <field name="total_value" sum="Total Value"/>
+                    <field name="won_value" sum="Won Value"/>
+                    <field name="success_rate" avg="Average Success Rate"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Pivot View for Tender Statistics -->
+        <record id="view_tender_statistics_report_pivot" model="ir.ui.view">
+            <field name="name">tender.statistics.report.pivot</field>
+            <field name="model">report.tender.statistics</field>
+            <field name="arch" type="xml">
+                <pivot string="Tender Statistics" display_quantity="true">
+                    <field name="user_id" type="row"/>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="tender_count" type="measure"/>
+                    <field name="won_count" type="measure"/>
+                    <field name="success_rate" type="measure"/>
+                    <field name="total_value" type="measure"/>
+                    <field name="won_value" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Graph View for Tender Statistics -->
+        <record id="view_tender_statistics_report_graph" model="ir.ui.view">
+            <field name="name">tender.statistics.report.graph</field>
+            <field name="model">report.tender.statistics</field>
+            <field name="arch" type="xml">
+                <graph string="Tender Statistics" type="line">
+                    <field name="date" interval="month"/>
+                    <field name="success_rate" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Search View for Tender Statistics -->
+        <record id="view_tender_statistics_report_search" model="ir.ui.view">
+            <field name="name">tender.statistics.report.search</field>
+            <field name="model">report.tender.statistics</field>
+            <field name="arch" type="xml">
+                <search string="Tender Statistics">
+                    <field name="user_id"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <filter string="My Statistics" name="my_statistics" domain="[('user_id', '=', uid)]"/>
+                    <separator/>
+                    <filter string="Current Year" name="current_year" domain="[('date', '&gt;=', datetime.datetime.now().strftime('%Y-01-01'))]"/>
+                    <filter string="Previous Year" name="prev_year" domain="[('date', '&gt;=', (datetime.datetime.now() - relativedelta(years=1)).strftime('%Y-01-01')), ('date', '&lt;', datetime.datetime.now().strftime('%Y-01-01'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Responsible" name="user" context="{'group_by': 'user_id'}"/>
+                        <filter string="Company" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                        <separator/>
+                        <filter string="Month" name="month" context="{'group_by': 'date:month'}"/>
+                        <filter string="Year" name="year" context="{'group_by': 'date:year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Tender Statistics Action -->
+        <record id="action_tender_statistics_report" model="ir.actions.act_window">
+            <field name="name">Tender Statistics</field>
+            <field name="res_model">report.tender.statistics</field>
+            <field name="view_mode">pivot,graph,tree</field>
+            <field name="search_view_id" ref="view_tender_statistics_report_search"/>
+            <field name="context">{'search_default_current_year': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No statistics available yet!
+                </p>
+                <p>
+                    Create tender bids and complete their workflow to generate statistics.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu for Tender Analytics Reports -->
+        <menuitem id="menu_tender_analysis" 
+                  name="Tender Analysis" 
+                  parent="menu_tender_report" 
+                  action="action_tender_bid_analysis" 
+                  sequence="10"/>
+        
+        <menuitem id="menu_tender_statistics" 
+                  name="Tender Statistics" 
+                  parent="menu_tender_report" 
+                  action="action_tender_statistics_report" 
+                  sequence="20"/>
+    </data>
+</odoo>
