@@ -1,0 +1,257 @@
+/* Common Styles for Tender Management */
+
+/* Card Styles */
+.o_tender_card {
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.o_tender_card_header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eeeeee;
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+.o_tender_card_content {
+    padding: 20px;
+}
+
+.o_tender_card_footer {
+    padding: 12px 20px;
+    border-top: 1px solid #eeeeee;
+    background-color: #f8f9fa;
+}
+
+/* Status Indicators */
+.o_tender_status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.o_tender_status_draft {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.o_tender_status_review {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.o_tender_status_approved {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.o_tender_status_preparation {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.o_tender_status_submitted {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.o_tender_status_awarded {
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: bold;
+}
+
+.o_tender_status_rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.o_tender_status_canceled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    text-decoration: line-through;
+}
+
+/* Tag Styles */
+.o_tender_tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+/* Form Field Enhancements */
+.o_field_widget.o_field_tender_priority .o_priority {
+    display: inline-flex;
+    margin-bottom: 0;
+}
+
+.o_field_widget.o_field_tender_priority .o_priority > a {
+    margin-right: 5px;
+}
+
+.o_field_widget.o_field_tender_priority .o_priority > a > i {
+    font-size: 1.2em;
+}
+
+/* Label Styles */
+.o_tender_label {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.o_tender_label_primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.o_tender_label_success {
+    background-color: #28a745;
+    color: white;
+}
+
+.o_tender_label_warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.o_tender_label_danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.o_tender_label_info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+/* Button Styles */
+.o_tender_button {
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.o_tender_button_primary {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.o_tender_button_primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.o_tender_button_secondary {
+    background-color: #6c757d;
+    color: white;
+    border: 1px solid #6c757d;
+}
+
+.o_tender_button_secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.o_tender_button_success {
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+}
+
+.o_tender_button_success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.o_tender_button_danger {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.o_tender_button_danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Table Styles */
+.o_tender_table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.o_tender_table thead th {
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.o_tender_table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.o_tender_table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.o_tender_table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .o_tender_card_header,
+    .o_tender_card_content,
+    .o_tender_card_footer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .o_tender_table thead th,
+    .o_tender_table tbody td {
+        padding: 10px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .o_tender_card {
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+    
+    .o_tender_status {
+        background-color: transparent !important;
+        color: #000 !important;
+        border: 1px solid #dee2e6;
+    }
+    
+    .o_tender_table {
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+}
