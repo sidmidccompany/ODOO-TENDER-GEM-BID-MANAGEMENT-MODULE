@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Dashboard Templates -->
+    <t t-name="TenderDashboard">
+        <div class="o_tender_dashboard">
+            <div class="o_tender_dashboard_header">
+                <h1>Tender Management Dashboard</h1>
+                <div class="o_tender_dashboard_buttons">
+                    <button type="button" class="btn btn-primary o_tender_dashboard_new_tender">
+                        <i class="fa fa-plus"/> New Tender
+                    </button>
+                    <button type="button" class="btn btn-secondary o_tender_dashboard_reload">
+                        <i class="fa fa-refresh"/> Reload
+                    </button>
+                </div>
+            </div>
+            <div class="o_tender_dashboard_content"/>
+        </div>
+    </t>
+    
+    <t t-name="TenderDashboardContent">
+        <div class="row">
+            <!-- Summary Cards -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="o_tender_dashboard_card">
+                    <div class="o_tender_dashboard_card_header">
+                        <h3>Active Tenders</h3>
+                    </div>
+                    <div class="o_tender_dashboard_card_body">
+                        <div class="o_tender_dashboard_card_value">
+                            <t t-esc="data.active_tenders_count || 0"/>
+                        </div>
+                        <div class="o_tender_dashboard_card_icon">
+                            <i class="fa fa-file-text-o fa-3x"/>
+                        </div>
+                    </div>
+                    <div class="o_tender_dashboard_card_footer">
+                        <a href="#" class="o_tender_dashboard_action" name="action_view_active_tenders">
+                            View All
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="o_tender_dashboard_card">
+                    <div class="o_tender_dashboard_card_header">
+                        <h3>Pending Bids</h3>
+                    </div>
+                    <div class="o_tender_dashboard_card_body">
+                        <div class="o_tender_dashboard_card_value">
+                            <t t-esc="data.pending_bids_count || 0"/>
+                        </div>
+                        <div class="o_tender_dashboard_card_icon">
+                            <i class="fa fa-tasks fa-3x"/>
+                        </div>
+                    </div>
+                    <div class="o_tender_dashboard_card_footer">
+                        <a href="#" class="o_tender_dashboard_action" name="action_view_pending_bids">
+                            View All
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="o_tender_dashboard_card">
+                    <div class="o_tender_dashboard_card_header">
+                        <h3>Success Rate</h3>
+                    </div>
+                    <div class="o_tender_dashboard_card_body">
+                        <div class="o_tender_dashboard_card_value">
+                            <t t-esc="data.success_rate || 0"/>%
+                        </div>
+                        <div class="o_tender_dashboard_card_icon">
+                            <i class="fa fa-trophy fa-3x"/>
+                        </div>
+                    </div>
+                    <div class="o_tender_dashboard_card_footer">
+                        <a href="#" class="o_tender_dashboard_action" name="action_view_analytics">
+                            View Analytics
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <!-- Charts -->
+            <div class="col-lg-6 col-md-12">
+                <div class="o_tender_dashboard_chart_container">
+                    <h3>Tenders by Status</h3>
+                    <div class="o_tender_dashboard_chart">
+                        <canvas class="o_tender_status_chart" height="300"/>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-12">
+                <div class="o_tender_dashboard_chart_container">
+                    <h3>Department Success Rate</h3>
+                    <div class="o_tender_dashboard_chart">
+                        <canvas class="o_department_success_chart" height="300"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <!-- Upcoming Deadlines Table -->
+            <div class="col-12">
+                <div class="o_tender_dashboard_table_container">
+                    <h3>Upcoming Deadlines</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tender</th>
+                                <th>Deadline</th>
+                                <th>Days Left</th>
+                                <th>Department</th>
+                                <th>Responsible</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="data.upcoming_deadlines || []" t-as="tender">
+                                <tr>
+                                    <td>
+                                        <t t-if="tender.is_favorite">
+                                            <i class="fa fa-star o_starred o_dashboard_star" t-att-data-id="tender.id"/>
+                                        </t>
+                                        <t t-else="">
+                                            <i class="fa fa-star-o o_dashboard_star" t-att-data-id="tender.id"/>
+                                        </t>
+                                        <t t-esc="tender.name"/>
+                                    </td>
+                                    <td><t t-esc="tender.deadline"/></td>
+                                    <td>
+                                        <span t-attf-class="badge badge-pill badge-#{tender.days_left &lt;= 3 ? 'danger' : (tender.days_left &lt;= 7 ? 'warning' : 'info')}">
+                                            <t t-esc="tender.days_left"/> days
+                                        </span>
+                                    </td>
+                                    <td><t t-esc="tender.department"/></td>
+                                    <td><t t-esc="tender.user"/></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary o_tender_dashboard_action" 
+                                                t-att-data-id="tender.id" name="action_view_tender">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr t-if="!data.upcoming_deadlines || data.upcoming_deadlines.length === 0">
+                                <td colspan="6" class="text-center">No upcoming deadlines</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <!-- Recent Activity -->
+            <div class="col-12">
+                <div class="o_tender_dashboard_chart_container">
+                    <h3>Monthly Activity</h3>
+                    <div class="o_tender_dashboard_chart">
+                        <canvas class="o_monthly_tenders_chart" height="300"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+    
+    <!-- AI Chat Templates -->
+    <t t-name="TenderAIChat">
+        <div class="o_tender_ai_chat">
+            <div class="o_tender_ai_chat_header">
+                <h3>AI Tender Assistant</h3>
+                <div class="o_tender_ai_chat_actions">
+                    <button class="btn btn-sm btn-secondary o_ai_toggle_suggestions">
+                        <i class="fa fa-lightbulb-o"/> Suggestions
+                    </button>
+                    <button class="btn btn-sm btn-secondary o_ai_clear_chat">
+                        <i class="fa fa-trash-o"/> Clear
+                    </button>
+                </div>
+            </div>
+            <div class="o_tender_ai_chat_content"/>
+            <div class="o_tender_ai_chat_input_container">
+                <textarea class="o_tender_ai_input" placeholder="Ask a question about this tender..."></textarea>
+                <button class="btn btn-primary o_tender_ai_send">
+                    <i class="fa fa-paper-plane"/>
+                </button>
+            </div>
+        </div>
+    </t>
+    
+    <t t-name="TenderAIChatMessages">
+        <div class="o_tender_ai_messages">
+            <t t-foreach="messages" t-as="message">
+                <div t-attf-class="o_tender_ai_message o_tender_ai_message_#{message.type}">
+                    <div class="o_tender_ai_message_content">
+                        <t t-if="message.isProcessing">
+                            <div class="o_tender_ai_typing">
+                                <span class="o_typing_dot"></span>
+                                <span class="o_typing_dot"></span>
+                                <span class="o_typing_dot"></span>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <t t-raw="message.content"/>
+                        </t>
+                    </div>
+                    <div class="o_tender_ai_message_info">
+                        <span class="o_tender_ai_message_time"><t t-esc="message.datetime"/></span>
+                    </div>
+                </div>
+            </t>
+        </div>
+        <t t-if="showSuggestions">
+            <div class="o_tender_ai_suggestions">
+                <div class="o_tender_ai_suggestions_title">Suggested questions:</div>
+                <div class="o_tender_ai_suggestions_list">
+                    <t t-foreach="suggestions" t-as="suggestion">
+                        <div class="o_ai_suggestion">
+                            <t t-esc="suggestion"/>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </t>
+    
+    <!-- Analytics Chart Templates -->
+    <t t-name="TenderAnalyticsChart">
+        <div class="o_tender_analytics_charts"/>
+    </t>
+    
+    <t t-name="TenderAnalyticsChartContent">
+        <div class="row">
+            <div class="col-12">
+                <div class="o_analytics_summary">
+                    <div class="o_analytics_tender_name">
+                        <h3><t t-esc="data.tender_name || 'Tender Analytics'"/></h3>
+                    </div>
+                    <div class="o_analytics_tender_value">
+                        <span class="o_analytics_label">Tender Value:</span>
+                        <span class="o_analytics_value"><t t-esc="data.tender_value || 0"/></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <!-- Timeline Chart -->
+            <div class="col-lg-8 col-md-12">
+                <div class="o_analytics_chart_container">
+                    <div class="o_analytics_chart_content">
+                        <canvas class="o_tender_timeline_chart" height="250"/>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Win Probability Gauge -->
+            <div class="col-lg-4 col-md-12">
+                <div class="o_analytics_chart_container">
+                    <div class="o_analytics_chart_content">
+                        <div class="o_probability_gauge_container">
+                            <canvas class="o_tender_probability_gauge" height="200"/>
+                            <div class="o_gauge_value"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <!-- Timing Metrics -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="o_analytics_metric_card">
+                    <div class="o_analytics_metric_title">Preparation Time</div>
+                    <div class="o_analytics_metric_value">
+                        <t t-esc="data.preparation_time || 0"/> days
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="o_analytics_metric_card">
+                    <div class="o_analytics_metric_title">Response Time</div>
+                    <div class="o_analytics_metric_value">
+                        <t t-esc="data.response_time || 0"/> days
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="o_analytics_metric_card">
+                    <div class="o_analytics_metric_title">Competing Bids</div>
+                    <div class="o_analytics_metric_value">
+                        <t t-esc="data.competing_bids || 'N/A'"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <!-- Cost Analysis Chart -->
+            <div class="col-lg-6 col-md-12">
+                <div class="o_analytics_chart_container">
+                    <div class="o_analytics_chart_content">
+                        <canvas class="o_tender_cost_chart" height="250"/>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cost Summary -->
+            <div class="col-lg-6 col-md-12">
+                <div class="o_analytics_metric_container">
+                    <h4>Cost Analysis</h4>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Preparation Cost</td>
+                                <td class="text-right"><t t-esc="data.costs.preparation || 0"/></td>
+                            </tr>
+                            <tr>
+                                <td>Submission Cost</td>
+                                <td class="text-right"><t t-esc="data.costs.submission || 0"/></td>
+                            </tr>
+                            <tr class="table-active">
+                                <td><strong>Total Cost</strong></td>
+                                <td class="text-right"><strong><t t-esc="data.costs.total || 0"/></strong></td>
+                            </tr>
+                            <tr>
+                                <td>ROI if Won</td>
+                                <td class="text-right"><t t-esc="data.roi_if_won || 0"/>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
