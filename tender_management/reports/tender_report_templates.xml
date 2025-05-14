@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Common CSS for Tender Reports -->
+        <template id="tender_report_assets_common" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/tender_management/static/src/scss/tender_report.scss"/>
+            </xpath>
+        </template>
+
+        <!-- Common Header for Tender Reports -->
+        <template id="tender_external_layout_header">
+            <div class="header">
+                <div class="row">
+                    <div class="col-3">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 70px;" alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-right" style="margin-top:22px;">
+                        <h3 t-field="company.name"/>
+                        <div t-field="company.partner_id" 
+                            t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": true}'/>
+                    </div>
+                </div>
+                <div class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Common Footer for Tender Reports -->
+        <template id="tender_external_layout_footer">
+            <div class="footer">
+                <div class="row">
+                    <div class="col-6">
+                        <span t-field="company.name"/>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+        
+        <!-- External Layout Template -->
+        <template id="tender_external_layout">
+            <t t-call="tender_management.tender_external_layout_header"/>
+            <t t-raw="0"/>
+            <t t-call="tender_management.tender_external_layout_footer"/>
+        </template>
+
+        <!-- Tender Bid Document Template -->
+        <template id="report_tender_bid_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.tender_external_layout">
+                        <div class="page">
+                            <h2 class="mt-4">
+                                <span>Tender Bid: </span>
+                                <span t-field="o.name"/>
+                            </h2>
+                            
+                            <div class="row mt-4">
+                                <div class="col-6">
+                                    <strong>Reference:</strong> <span t-field="o.reference"/>
+                                    <br/>
+                                    <strong>Organization:</strong> <span t-field="o.organization_id.name"/>
+                                    <br/>
+                                    <strong>Bid Type:</strong> <span t-field="o.type_id.name"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Submission Date:</strong> <span t-field="o.submission_date"/>
+                                    <br/>
+                                    <strong>Closing Date:</strong> <span t-field="o.closing_date"/>
+                                    <br/>
+                                    <strong>Status:</strong> <span t-field="o.stage_id.name"/>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mt-4">Description</h4>
+                            <p t-field="o.description"/>
+                            
+                            <div t-if="o.requirement_ids">
+                                <h4 class="mt-4">Requirements</h4>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Requirement</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.requirement_ids" t-as="req">
+                                            <tr>
+                                                <td><span t-field="req.name"/></td>
+                                                <td><span t-field="req.description"/></td>
+                                                <td><span t-field="req.state"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div t-if="o.document_ids">
+                                <h4 class="mt-4">Documents</h4>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.document_ids" t-as="doc">
+                                            <tr>
+                                                <td><span t-field="doc.name"/></td>
+                                                <td><span t-field="doc.type"/></td>
+                                                <td><span t-field="doc.date"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="mt-5 mb-4 footer-info">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Prepared By:</strong> <span t-field="o.user_id.name"/>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <strong>Date:</strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Application Summary Template -->
+        <template id="report_tender_application_summary">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="tender_management.tender_external_layout">
+                        <div class="page">
+                            <h2 class="mt-4">
+                                <span>Tender Application Summary</span>
+                            </h2>
+                            
+                            <div class="row mt-4">
+                                <div class="col-6">
+                                    <strong>Tender:</strong> <span t-field="o.bid_id.name"/>
+                                    <br/>
+                                    <strong>Reference:</strong> <span t-field="o.bid_id.reference"/>
+                                    <br/>
+                                    <strong>Organization:</strong> <span t-field="o.bid_id.organization_id.name"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Submission Date:</strong> <span t-field="o.submission_date"/>
+                                    <br/>
+                                    <strong>Status:</strong> <span t-field="o.state"/>
+                                    <br/>
+                                    <strong>Amount:</strong> <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mt-4">Technical Proposal</h4>
+                            <p t-field="o.technical_details"/>
+                            
+                            <h4 class="mt-4">Financial Proposal</h4>
+                            <p t-field="o.financial_details"/>
+                            
+                            <div t-if="o.document_ids">
+                                <h4 class="mt-4">Submitted Documents</h4>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.document_ids" t-as="doc">
+                                            <tr>
+                                                <td><span t-field="doc.name"/></td>
+                                                <td><span t-field="doc.type"/></td>
+                                                <td><span t-field="doc.date"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div t-if="o.note" class="mt-4">
+                                <h4>Notes</h4>
+                                <p t-field="o.note"/>
+                            </div>
+                            
+                            <div class="mt-5 mb-4 footer-info">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Prepared By:</strong> <span t-field="o.user_id.name"/>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <strong>Date:</strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
